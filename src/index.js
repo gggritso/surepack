@@ -1,93 +1,5 @@
 const inquirer = require( 'inquirer' );
-
-const questions = [{
-  type: 'input',
-  name: 'nightsOfSleep',
-  message: 'How many nights of sleep?',
-  filter: parseInt,
-  default: 3, // remove this
-},
-{
-  type: 'list',
-  name: 'accommodations',
-  message: 'Where are you living?',
-  choices: [ 'Hotel', 'AirBnB', 'Friends', 'Camping' ],
-},
-{
-  type: 'confirm',
-  name: 'leavingCanada',
-  message: 'Leaving Canada?',
-  default: false,
-},
-{
-  type: 'confirm',
-  name: 'accessToBodyOfWater',
-  message: 'Access to water or hot tub?',
-  default: true, // change to false
-},
-{
-  type: 'confirm',
-  name: 'lazy',
-  message: 'Lazy?',
-  default: false,
-},
-{
-  type: 'input',
-  name: 'formalDays',
-  message: 'How many fancy days?',
-  filter: parseInt,
-  default: 0,
-},
-{
-  type: 'input',
-  name: 'sportsDays',
-  message: 'How many sports days?',
-  filter: parseInt,
-  default: 0,
-},
-{
-  type: 'input',
-  name: 'rainDays',
-  message: 'How many rain days?',
-  filter: parseInt,
-  default: 0,
-},
-{
-  type: 'input',
-  name: 'drivingHours',
-  message: 'How many hours of driving?',
-  filter: parseInt,
-  default: 0,
-},
-{
-  type: 'input',
-  name: 'drivingPeople',
-  message: 'How many people in the car',
-  filter: parseInt,
-  default: 0,
-  when: answers => {
-    return answers.drivingHours > 0;
-  },
-},
-{
-  type: 'input',
-  name: 'lowTemperature',
-  message: 'What’s the low temperature?',
-  filter: parseInt,
-},
-{
-  type: 'input',
-  name: 'highTemperature',
-  message: 'What’s the high temperature?',
-  filter: parseInt,
-},
-{
-  type: 'input',
-  name: 'specialCircumstances',
-  message: 'Are there any special circumstances you’re forgetting?',
-  filter: parseInt,
-},
-];
+const questions = require( './questions' );
 
 inquirer.prompt( questions )
   .then( answers => {
@@ -255,8 +167,10 @@ inquirer.prompt( questions )
       misc.push( 'passport' );
     }
 
-    console.log( toiletries );
-    console.log( clothing );
-    console.log( circumstances );
-    console.log( misc );
+    return {
+      toiletries,
+      clothing,
+      circumstances,
+      misc,
+    };
   });
