@@ -1,0 +1,6 @@
+{
+  "extends": "/Users/gggritso/.eslintrc",
+  "rules": {
+    "no-magic-numbers": 0
+  }
+}
