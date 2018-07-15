@@ -2,175 +2,195 @@ const inquirer = require( 'inquirer' );
 const questions = require( './questions' );
 
 const createPackingList = answers => {
-  const toiletries = [];
 
   const {
-    nightsOfSleep,
-    formalDays,
-    accessToBodyOfWater,
-    lazy,
+    tripType,
+    vibe,
     accommodations,
+    travelMethod,
+    nightsOfSleep,
+    accessToBodyOfWater,
     sportsDays,
     rainDays,
     leavingCanada,
     drivingHours,
-    drivingPeople,
+    peopleInCar,
     lowTemperature,
     highTemperature,
   } = answers;
 
-  const isStayingWithFriends = accommodations === 'Friends';
-  const roughingIt = accommodations === 'Camping';
+  const
+    willNeedASuit = tripType === 'Wedding',
+    isFreeToGroom = tripType === 'Wedding' || vibe === 'Classy' || vibe === 'Casual',
+    willNeedToShave = tripType === 'Wedding' || vibe === 'Classy',
+    isStayingWithFriends = accommodations === 'Friends',
+    isShortsWeather = lowTemperature > 20;
 
-  toiletries.push( 'toothbrush' );
-  toiletries.push( 'toothpaste' );
-  toiletries.push( 'tongue brush' );
-  toiletries.push( 'floss' );
-  toiletries.push( `${ nightsOfSleep + 1 } threaders` );
-  toiletries.push( 'mouthwash' );
+  let bottomsType = 'jeans';
 
-  toiletries.push( 'cleanser' );
-  toiletries.push( 'moisturizer' );
-  toiletries.push( 'deodorant' );
-
-  if ( ( sportsDays < nightsOfSleep ) && !lazy ) {
-    toiletries.push( 'cologne' );
-    toiletries.push( 'hair gel' );
+  if ( vibe === 'Classy' ) {
+    bottomsType = 'slacks';
+  } else if ( vibe === 'Casual' ) {
+    if ( tripType === 'Road Trip' || tripType === 'Cottage' ) {
+      bottomsType = isShortsWeather ? 'gym shorts' : 'track pants';
+    } else {
+      bottomsType = isShortsWeather ? 'shorts' : 'jeans';
+    }
+  } else if ( vibe === 'Lazy' ) {
+    bottomsType = isShortsWeather ? 'gym shorts' : 'track pants';
   }
 
-  toiletries.push( 'lip balm' );
-  toiletries.push( 'tissues' );
 
-  if ( nightsOfSleep > 3 && isStayingWithFriends ) toiletries.push( 'shampoo' );
-  if ( accommodations !== 'Hotel' && accommodations !== 'Camping' ) toiletries.push( 'shower gel' );
-  toiletries.push( 'loofah' );
+  let dopp = [
+    'toothbrush',
+    'toothpaste',
+    'tongue brush',
+    'floss',
+  ];
 
-  toiletries.push( 'sunglasses' );
-  toiletries.push( 'glasses' );
+  if ( isFreeToGroom ) {
+    dopp = dopp.concat([
+      `${ nightsOfSleep + 1 } floss threaders`,
+      'mouthwash',
 
-  if ( nightsOfSleep < 3 || roughingIt ) {
-    toiletries.push( `${ nightsOfSleep + 1 } daily contacts` );
+      'cleanser',
+      'moisturizer',
+      'deodorant',
+
+      'tissues',
+    ]);
+  }
+
+  if ( lowTemperature < 15 ) dopp.push('lip balm');
+
+  if ( ( sportsDays < nightsOfSleep ) && vibe !== 'Lazy' ) {
+    dopp.push( 'cologne' );
+    dopp.push( 'hair gel' );
+  }
+
+  if ( nightsOfSleep < 3 ) {
+    dopp.push( `${ nightsOfSleep + 1 } daily contacts` );
   } else {
-    toiletries.push( 'contact lens case' );
-    toiletries.push( 'contact lens fluid' );
+    dopp.push( 'contact lens case' );
+    dopp.push( 'contact lens fluid' );
   }
 
-  if ( ( nightsOfSleep > 4 || formalDays > 0 ) && !lazy ) {
-    toiletries.push( 'shaving cream' );
-    toiletries.push( 'razor' );
-    toiletries.push( 'alum' );
-    toiletries.push( 'nail scissors' );
-    toiletries.push( 'nail file' );
+  if ( nightsOfSleep > 3 && isStayingWithFriends ) dopp.push( 'shampoo' );
+  if ( accommodations !== 'Hotel' ) dopp.push( 'shower gel' );
+  dopp.push( 'loofah' );
+
+  let shavingKit = [];
+
+  if ( willNeedToShave ) {
+    shavingKit = [
+      'shaving cream',
+      'razor',
+      'alum',
+      'nail scissors',
+      'nail file',
+    ];
   }
 
-  toiletries.push( 'tums, advil, imodium' );
+  dopp.push( 'tums, advil, imodium' );
 
-  const clothing = [];
+  const duffel = [];
 
-  clothing.push( `${ Math.min( nightsOfSleep + 1, 6 ) } underwear` );
-  clothing.push( `${ Math.min( ( nightsOfSleep - formalDays ) + 1, 6 ) } socks` );
-  clothing.push( `${ Math.min( ( nightsOfSleep - formalDays ) + 1, 6 ) } t-shirts` );
+  const setsOfClothes = Math.min( nightsOfSleep + 1, 6 );
 
-  if ( lowTemperature < 20 ) {
-    clothing.push( `${ Math.min( Math.ceil( nightsOfSleep / 3 ), 3 ) } sweaters` );
+  duffel.push( `${ setsOfClothes } underwear` );
+  if ( lowTemperature > 25 ) {
+    duffel.push( `${ Math.floor( setsOfClothes / 2 ) } socks` );
+  } else {
+    duffel.push( `${ setsOfClothes } socks` );
+  }
+  duffel.push( `${ setsOfClothes } t-shirts` );
+
+  if ( lowTemperature < 15 ) {
+    duffel.push( `${ Math.min( Math.ceil( nightsOfSleep / 3 ), 3 ) } sweaters` );
   }
 
-  clothing.push( `${ Math.min( Math.floor( nightsOfSleep / 3 ), 3 ) } bottoms` );
+  duffel.push( `${ Math.min( Math.floor( nightsOfSleep / 3 ), 3 ) } ${ bottomsType }` );
 
   if ( sportsDays > 0 ) {
-    clothing.push( `${ sportsDays } tank tops` );
-    clothing.push( `${ sportsDays } shorts` );
-    clothing.push( `${ sportsDays } sports socks` );
-    clothing.push( `${ sportsDays } sports underwear` );
-    clothing.push( 'cross-training shoes' );
+    duffel.push( `${ sportsDays } tank tops` );
+    duffel.push( `${ sportsDays } shorts` );
+    duffel.push( `${ sportsDays } sports socks` );
+    duffel.push( `${ sportsDays } sports underwear` );
+    duffel.push( 'cross-training shoes' );
   }
 
   if ( ( nightsOfSleep > 4 && highTemperature < 20 ) || rainDays > 1 ) {
-    clothing.push( 'second pair of shoes' );
+    duffel.push( 'second pair of shoes' );
   }
 
-  if ( formalDays > 0 ) {
-    clothing.push( 'suit' );
-    clothing.push( 'formal shoes' );
-    clothing.push( 'formal belt' );
-    clothing.push( 'tie' );
-    clothing.push( `${ formalDays } dress shirts` );
-    clothing.push( `${ formalDays } dress socks` );
+  if ( willNeedASuit ) {
+    duffel.push( 'suit' );
+    duffel.push( 'formal shoes' );
+    duffel.push( 'formal belt' );
+    duffel.push( 'tie' );
+    duffel.push( 'dress shirt' );
+    duffel.push( 'dress socks' );
   }
 
-  const circumstances = [];
-
-  if ( highTemperature > 10 ) {
-    circumstances.push( 'sunscreen' );
-  }
-
-  if ( rainDays > 1 ) {
-    circumstances.push( 'umbrella' );
-  }
-
-  if ( drivingHours > 2 && drivingHours < 10 && drivingPeople > 0 ) {
-    circumstances.push( `${ drivingPeople * drivingHours * 50 + nightsOfSleep * 200 } calories of snacks` );
-  } else if ( !leavingCanada && nightsOfSleep < 4 ) {
-    circumstances.push( `${ nightsOfSleep * 200 } calories of snacks` );
-  }
-
-  if ( accessToBodyOfWater ) {
-    circumstances.push( 'swim trunks' );
-    circumstances.push( 'beach towel' );
-    circumstances.push( 'flip flops' );
-  } else {
-    circumstances.push( 'travel towel' );
-  }
-
-  if ( nightsOfSleep > 4 && !leavingCanada ) {
-    circumstances.push( 'indoor game or activity' );
-  }
-
-  if ( nightsOfSleep > 5 ) {
-    circumstances.push( `${ Math.max( Math.floor( nightsOfSleep / 5 ), 1 ) } laundry pods` );
-  }
-
-  if ( lowTemperature < 10 && !roughingIt && !isStayingWithFriends ) {
-    circumstances.push( 'slippers' );
-  }
-
-  if ( isStayingWithFriends ) {
-    circumstances.push( 'sleep shorts or pajama pants' );
-    circumstances.push( 'bottle of wine or a treat' );
-  }
-
-  const misc = [
+  const backpack = [
+    'sunglasses in case',
+    'glasses in case',
     'book',
     'phone charger',
     'garbage bag',
   ];
 
-  if ( ( nightsOfSleep > 2 || isStayingWithFriends ) && !lazy ) {
-    misc.push( 'laptop and charger' );
+  if ( highTemperature > 10 ) backpack.push( 'sunscreen' );
+  if ( rainDays > 1 ) backpack.push( 'umbrella' );
+
+  if ( drivingHours > 2 && peopleInCar > 1 ) {
+    backpack.push( `${ peopleInCar * drivingHours * 50 + nightsOfSleep * 200 } calories of snacks` );
+  } else if ( !leavingCanada && nightsOfSleep < 4 ) {
+    backpack.push( `${ nightsOfSleep * 200 } calories of snacks` );
+  }
+
+  if ( accessToBodyOfWater ) {
+    duffel.push( 'swim trunks' );
+    if ( accommodations !== 'Hotel' ) duffel.push( 'beach towel' );
+    duffel.push( 'flip flops' );
+  } else {
+    if ( accommodations !== 'Hotel' ) duffel.push( 'travel towel' );
+  }
+
+  if ( nightsOfSleep > 4 ) {
+    backpack.push( 'pack of cards' );
+  }
+
+  if ( nightsOfSleep > 5 ) {
+    duffel.push( `${ Math.max( Math.floor( nightsOfSleep / 5 ), 1 ) } laundry pods` );
+  }
+
+  if ( lowTemperature < 10 ) duffel.push( 'slippers' );
+
+  if ( isStayingWithFriends ) {
+    duffel.push( 'sleep shorts or pajama pants' );
+    backpack.push( 'bottle of wine or a treat' );
+  }
+
+  if ( nightsOfSleep > 2 ) {
+    backpack.push( 'laptop and charger' );
   }
 
   if ( sportsDays > 0 ) {
-    misc.push( 'polysporin' );
-    misc.push( 'band-aids' );
+    dopp.push( 'polysporin' );
+    dopp.push( 'band-aids' );
   }
 
-  if ( sportsDays > 0 || accommodations === 'Camping' ) {
-    misc.push( 'water bottle' );
-  }
+  if ( sportsDays > 0 || tripType === 'Road Trip' ) backpack.push( 'water bottle' );
 
-  if ( drivingHours > 0 ) {
-    misc.push( 'aux cable' );
-  }
-
-  if ( leavingCanada ) {
-    misc.push( 'passport' );
-  }
+  if ( travelMethod === 'Car' || tripType === 'Road Trip' ) backpack.push( 'aux cable' );
+  if ( leavingCanada ) backpack.push( 'passport' );
 
   return {
-    toiletries,
-    clothing,
-    circumstances,
-    misc,
+    dopp,
+    shavingKit,
+    backpack,
+    duffel,
   };
 };
 
