@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<body>
+  <h1>Packing List</h1>
+
+  <h2>Dopp</h2>
+  <ul>
+    {{#each dopp }}
+    <li><input type="checkbox">{{ this }}</li>
+    {{/each}}
+  </ul>
+
+  {{#if shavingKit.length}}
+  <h2>Shaving Kit</h2>
+  {{#each shavingKit }}
+  <li><input type="checkbox">{{ this }}</li>
+  {{/each}}
+  </ul>
+  {{/if}}
+
+  <h2>Backpack</h2>
+  <ul>
+    {{#each backpack }}
+    <li><input type="checkbox">{{ this }}</li>
+    {{/each}}
+  </ul>
+
+  <h2>Duffel</h2>
+  <ul>
+    {{#each duffel }}
+    <li><input type="checkbox">{{ this }}</li>
+    {{/each}}
+  </ul>
+
+</body>
