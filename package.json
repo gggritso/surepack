@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "handlebars": "^4.0.11",
-    "inquirer": "^5.2.0"
+    "inquirer": "^5.2.0",
+    "pluralize": "^7.0.0"
   }
 }
