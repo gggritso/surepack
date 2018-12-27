@@ -65,7 +65,7 @@ const createPackingList = answers => {
 
   if ( nightsOfSleep > 3 && isStayingWithFriends ) dopp.pack( 'shampoo' );
   if ( accommodations !== 'Hotel' ) dopp.pack( 'shower gel' );
-  dopp.pack( 'loofah' );
+  if ( nightsOfSleep > 1 && vibe !== 'Lazy' ) dopp.pack( 'loofah' );
 
   let shavingKit = new Container( 'Shaving Kit' );
 
@@ -83,7 +83,9 @@ const createPackingList = answers => {
 
   const duffel = new Container( 'Duffel' );
 
-  const setsOfClothes = Math.min( nightsOfSleep + 1, 6 );
+  let setsOfClothes = Math.min( nightsOfSleep + 1, 6 );
+
+  if ( nightsOfSleep === 1 && vibe === 'Lazy' ) setsOfClothes = 1;
 
   duffel.pack( 'underwear', setsOfClothes );
 
@@ -134,7 +136,7 @@ const createPackingList = answers => {
   if ( rainDays > 1 ) backpack.pack( 'umbrella' );
 
   if ( drivingHours > 1 && peopleInCar > 1 ) {
-    backpack.pack( 'calories of snacks', peopleInCar * drivingHours * 50 + nightsOfSleep * 200 );
+    backpack.pack( 'calories of snacks', peopleInCar * drivingHours * 250 );
   }
 
   if ( accessToBodyOfWater ) {
