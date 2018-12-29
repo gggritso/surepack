@@ -29,6 +29,14 @@ const createPackingList = answers => {
 
   let bottomsType = 'jeans';
 
+  const preDeparture = new Container( 'Pre-departure' );
+
+  preDeparture.addOneOfEach( 'close all windows' );
+
+  if ( leavingCanada || nightsOfSleep > 3 ) {
+    preDeparture.addOneOfEach( 'set thermostat to vacation', 'set vacation on CondoControlCentral', 'take out trashes', 'run dishwasher' );
+  }
+
   if ( vibe === 'Classy' ) {
     bottomsType = 'slacks';
   } else if ( vibe === 'Casual' ) {
@@ -180,11 +188,17 @@ const createPackingList = answers => {
     backpack.pack( 'pen' );
   }
 
+  const postArrival = new Container( 'Post-arrival' );
+
+  postArrival.add( 'unpack' );
+
   return {
+    preDeparture: preDeparture.asList(),
     dopp: dopp.asList(),
     shavingKit: shavingKit.asList(),
     backpack: backpack.asList(),
     duffel: duffel.asList(),
+    postArrival: postArrival.asList(),
   };
 };
 

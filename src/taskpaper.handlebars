@@ -1,3 +1,7 @@
+- pre-departure: @parallel(true) @tags(Home, Chore)
+{{#each preDeparture }}
+  - {{this}} @tags(Home, Chore)
+{{/each}}
 - pack for trip: @parallel(false) @tags(Home, Chore)
   - Dopp: @parallel(false) @tags(Home, Chore)
   {{#each dopp }}
@@ -17,3 +21,7 @@
   {{#each duffel }}
     - {{this}} @tags(Home, Chore)
   {{/each}}
+- post-arrival: @parallel(true) @tags(Home, Chore)
+{{#each postArrival }}
+  - {{this}} @tags(Home, Chore)
+{{/each}}
