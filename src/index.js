@@ -174,7 +174,10 @@ const createPackingList = answers => {
   if ( sportsDays > 0 || tripType === 'Road Trip' ) backpack.pack( 'water bottle' );
 
   if ( travelMethod === 'Car' || tripType === 'Road Trip' ) backpack.pack( 'aux cable' );
-  if ( leavingCanada ) backpack.pack( 'passport' );
+  if ( leavingCanada ) {
+    backpack.pack( 'passport' );
+    backpack.pack( 'pen' );
+  }
 
   return {
     dopp: dopp.asList(),
