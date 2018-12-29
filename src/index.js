@@ -176,6 +176,7 @@ const createPackingList = answers => {
   if ( travelMethod === 'Car' || tripType === 'Road Trip' ) backpack.pack( 'aux cable' );
   if ( leavingCanada ) {
     backpack.pack( 'passport' );
+    backpack.pack( 'SIM tool' );
     backpack.pack( 'pen' );
   }
 
