@@ -12,6 +12,10 @@ class Container {
     }
   }
 
+  add( item, quantity ) {
+    this.pack( item, quantity );
+  }
+
   pack( item, quantity = 1 ) {
 
     if ( quantity > 0 ) {
@@ -22,6 +26,10 @@ class Container {
     }
 
     return this;
+  }
+
+  addOneOfEach() {
+    this.packOneOfEach( ...arguments );
   }
 
   packOneOfEach() {
