@@ -1,19 +1,19 @@
-- pack for trip: @parallel(false) @context(Home, Chore)
-  - Dopp: @parallel(false) @context(Home, Chore)
+- pack for trip: @parallel(false) @tags(Home, Chore)
+  - Dopp: @parallel(false) @tags(Home, Chore)
   {{#each dopp }}
-    - {{this}} @context(Home, Chore)
+    - {{this}} @tags(Home, Chore)
   {{/each}}
   {{#if shavingKit.length}}
-  - Shaving Kit @parallel(false) @context(Home, Chore)
+  - Shaving Kit @parallel(false) @tags(Home, Chore)
   {{#each shavingKit }}
-    - {{this}} @context(Home, Chore)
+    - {{this}} @tags(Home, Chore)
   {{/each}}
   {{/if}}
-  - Backpack @parallel(false) @context(Home, Chore)
+  - Backpack @parallel(false) @tags(Home, Chore)
   {{#each backpack }}
-    - {{this}} @context(Home, Chore)
+    - {{this}} @tags(Home, Chore)
   {{/each}}
-  - Duffel @parallel(false) @context(Home, Chore)
+  - Duffel @parallel(false) @tags(Home, Chore)
   {{#each duffel }}
-    - {{this}} @context(Home, Chore)
+    - {{this}} @tags(Home, Chore)
   {{/each}}
