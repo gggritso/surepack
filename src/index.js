@@ -50,7 +50,7 @@ const createPackingList = answers => {
       .packOneOfEach( 'mouthwash', 'cleanser', 'moisturizer', 'deodorant', 'tissues' );
   }
 
-  if ( lowTemperature < 15 ) dopp.pack( 'lip balm' );
+  dopp.pack( 'lip balm' );
 
   if ( ( sportsDays < nightsOfSleep ) && vibe !== 'Lazy' ) {
     dopp.packOneOfEach( 'cologne', 'hair gel' );
