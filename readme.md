@@ -12,3 +12,5 @@ It asks a few basic questions (trip type, duration, temperature, etc.) and spits
   Road Trip
   Wedding
 ```
+
+You can ask for a format (one of `taskpaper` or `markdown`) using the `--format` flag e.g., `surepack --format markdown`.
