@@ -5,6 +5,7 @@ const Container = require ( './container' );
 const createPackingList = answers => {
 
   const {
+    name,
     tripType,
     vibe,
     accommodations,
@@ -193,6 +194,7 @@ const createPackingList = answers => {
   postArrival.add( 'unpack' );
 
   return {
+    name: name,
     preDeparture: preDeparture.asList(),
     dopp: dopp.asList(),
     shavingKit: shavingKit.asList(),

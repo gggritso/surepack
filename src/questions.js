@@ -1,5 +1,10 @@
 module.exports = [
   {
+    type: 'input',
+    name: 'name',
+    message: 'What are you calling this trip?'
+  },
+  {
     type: 'list',
     name: 'tripType',
     message: 'What kind of trip is it?',

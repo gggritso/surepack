@@ -1,27 +1,28 @@
-- Pre-Departure @parallel(true) @tags(Home, Chore)
-{{#each preDeparture }}
-  - {{this}} @tags(Home, Chore)
-{{/each}}
-- Pack for Trip @parallel(false) @tags(Home, Chore)
-  - Dopp: @parallel(false) @tags(Home, Chore)
-  {{#each dopp }}
+- {{name}}
+  - Pre-Departure @parallel(true) @tags(Home, Chore)
+  {{#each preDeparture }}
     - {{this}} @tags(Home, Chore)
   {{/each}}
-  {{#if shavingKit.length}}
-  - Shaving Kit @parallel(false) @tags(Home, Chore)
-  {{#each shavingKit }}
+  - Pack for Trip @parallel(false) @tags(Home, Chore)
+    - Dopp: @parallel(false) @tags(Home, Chore)
+    {{#each dopp }}
+      - {{this}} @tags(Home, Chore)
+    {{/each}}
+    {{#if shavingKit.length}}
+    - Shaving Kit @parallel(false) @tags(Home, Chore)
+    {{#each shavingKit }}
+      - {{this}} @tags(Home, Chore)
+    {{/each}}
+    {{/if}}
+    - Backpack @parallel(false) @tags(Home, Chore)
+    {{#each backpack }}
+      - {{this}} @tags(Home, Chore)
+    {{/each}}
+    - Duffel @parallel(false) @tags(Home, Chore)
+    {{#each duffel }}
+      - {{this}} @tags(Home, Chore)
+    {{/each}}
+  - Post-Arrival @parallel(true) @tags(Home, Chore)
+  {{#each postArrival }}
     - {{this}} @tags(Home, Chore)
   {{/each}}
-  {{/if}}
-  - Backpack @parallel(false) @tags(Home, Chore)
-  {{#each backpack }}
-    - {{this}} @tags(Home, Chore)
-  {{/each}}
-  - Duffel @parallel(false) @tags(Home, Chore)
-  {{#each duffel }}
-    - {{this}} @tags(Home, Chore)
-  {{/each}}
-- Post-Arrival @parallel(true) @tags(Home, Chore)
-{{#each postArrival }}
-  - {{this}} @tags(Home, Chore)
-{{/each}}
