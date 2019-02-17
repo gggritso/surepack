@@ -67,6 +67,12 @@ module.exports = [
     default: false,
   },
   {
+    type: 'confirm',
+    name: 'willBeWorking',
+    message: 'Will you be working?',
+    default: false,
+  },
+  {
     type: 'input',
     name: 'sportsDays',
     message: 'How many sports days?',

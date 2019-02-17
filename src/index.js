@@ -12,6 +12,7 @@ const createPackingList = answers => {
     travelMethod,
     nightsOfSleep,
     accessToBodyOfWater,
+    willBeWorking,
     sportsDays,
     rainDays,
     leavingCanada,
@@ -175,7 +176,7 @@ const createPackingList = answers => {
     backpack.pack( 'bottle of wine or a treat' );
   }
 
-  if ( nightsOfSleep > 2 ) {
+  if ( willBeWorking || ( nightsOfSleep > 3 ) ) {
     backpack.pack( 'laptop and charger' );
   }
 
