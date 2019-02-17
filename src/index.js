@@ -145,7 +145,7 @@ const createPackingList = answers => {
   if ( rainDays > 1 ) backpack.pack( 'umbrella' );
 
   if ( drivingHours > 1 && peopleInCar > 1 ) {
-    backpack.pack( 'calories of snacks', peopleInCar * drivingHours * 250 );
+    backpack.pack( 'calories of snacks', peopleInCar * drivingHours * 100 );
   }
 
   if ( accessToBodyOfWater ) {
