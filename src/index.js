@@ -1,4 +1,6 @@
 const inquirer = require( 'inquirer' );
+inquirer.registerPrompt( 'datetime', require( 'inquirer-datepicker-prompt' ) );
+
 const questions = require( './questions' );
 const Container = require ( './container' );
 
@@ -10,7 +12,8 @@ const createPackingList = answers => {
     vibe,
     accommodations,
     travelMethod,
-    nightsOfSleep,
+    departureDate,
+    returnDate,
     accessToBodyOfWater,
     willBeWorking,
     sportsDays,
@@ -27,7 +30,8 @@ const createPackingList = answers => {
     isFreeToGroom = tripType === 'Wedding' || vibe === 'Classy' || vibe === 'Casual',
     willNeedToShave = tripType === 'Wedding' || vibe === 'Classy',
     isStayingWithFriends = accommodations === 'Friends',
-    isShortsWeather = lowTemperature > 20;
+    isShortsWeather = lowTemperature > 20,
+    nightsOfSleep = Math.floor( ( returnDate - departureDate ) / ( 1000 * 60 * 60 * 24 ) );
 
   let bottomsType = 'jeans';
 

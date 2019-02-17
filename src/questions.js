@@ -50,10 +50,16 @@ module.exports = [
     default: 'Casual',
   },
   {
-    type: 'input',
-    name: 'nightsOfSleep',
-    message: 'How many nights of sleep?',
-    filter: parseInt,
+    type: 'datetime',
+    name: 'departureDate',
+    message: 'When are you heading out?',
+    format: [ 'd', '/', 'm' ],
+  },
+  {
+    type: 'datetime',
+    name: 'returnDate',
+    message: 'When are you heading back?',
+    format: [ 'd', '/', 'm' ],
   },
   {
     type: 'confirm',

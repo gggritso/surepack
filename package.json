@@ -14,6 +14,7 @@
   "dependencies": {
     "handlebars": "^4.0.11",
     "inquirer": "^5.2.0",
+    "inquirer-datepicker-prompt": "^0.4.2",
     "pluralize": "^7.0.0",
     "yargs": "^13.2.0"
   }
