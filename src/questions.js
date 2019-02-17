@@ -2,7 +2,8 @@ module.exports = [
   {
     type: 'input',
     name: 'name',
-    message: 'What are you calling this trip?'
+    message: 'What are you calling this trip?',
+    default: 'My Trip',
   },
   {
     type: 'list',
