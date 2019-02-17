@@ -144,6 +144,10 @@ const createPackingList = answers => {
   if ( highTemperature > 10 ) backpack.pack( 'sunscreen' );
   if ( rainDays > 1 ) backpack.pack( 'umbrella' );
 
+  if ( drivingHours > 1 ) {
+    backpack.pack( 'water bottle' );
+  }
+
   if ( drivingHours > 1 && peopleInCar > 1 ) {
     backpack.pack( 'calories of snacks', peopleInCar * drivingHours * 100 );
   }
