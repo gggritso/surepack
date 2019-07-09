@@ -6,50 +6,6 @@ module.exports = [
     default: 'My Trip',
   },
   {
-    type: 'list',
-    name: 'tripType',
-    message: 'What kind of trip is it?',
-    choices: [
-      'City Visit',
-      'Cottage',
-      'Road Trip',
-      'Wedding',
-    ],
-    default: 'City Visit',
-  },
-  {
-    type: 'list',
-    name: 'accommodations',
-    message: 'Where are you living?',
-    choices: [
-      'Friends',
-      'AirBnB',
-      'Hotel',
-    ],
-  },
-  {
-    type: 'list',
-    name: 'travelMethod',
-    message: 'How are you getting there?',
-    choices: [
-      'Car',
-      'Plane',
-      'Train',
-    ],
-    default: 'Car',
-  },
-  {
-    type: 'list',
-    name: 'vibe',
-    message: 'What’s the vibe?',
-    choices: [
-      'Classy',
-      'Casual',
-      'Lazy',
-    ],
-    default: 'Casual',
-  },
-  {
     type: 'datetime',
     name: 'departureDate',
     message: 'When are you heading out?',
@@ -75,6 +31,12 @@ module.exports = [
   },
   {
     type: 'confirm',
+    name: 'willNeedASuit',
+    message: 'Will you need a suit?',
+    default: false,
+  },
+  {
+    type: 'confirm',
     name: 'willBeWorking',
     message: 'Will you be working?',
     default: false,
@@ -94,26 +56,6 @@ module.exports = [
   },
   {
     type: 'input',
-    name: 'drivingHours',
-    message: 'How many hours of driving to get there?',
-    filter: parseInt,
-    default: 0,
-    when: answers => {
-      return answers.travelMethod === 'Car';
-    },
-  },
-  {
-    type: 'input',
-    name: 'peopleInCar',
-    message: 'How many people in the car',
-    filter: parseInt,
-    default: 2,
-    when: answers => {
-      return answers.travelMethod === 'Car';
-    },
-  },
-  {
-    type: 'input',
     name: 'lowTemperature',
     message: 'What’s the low temperature?',
     filter: parseInt,
@@ -130,17 +72,5 @@ module.exports = [
     message: 'How many rain days?',
     filter: parseInt,
     default: 0,
-  },
-  {
-    type: 'confirm',
-    name: 'specialCircumstances',
-    message: 'Are there any special circumstances you’re forgetting?',
-    default: true,
-  },
-  {
-    type: 'confirm',
-    name: 'specialCircumstancesConfirm',
-    message: 'Are you sure?',
-    default: false,
-  },
+  }
 ];
