@@ -28,7 +28,6 @@ const createPackingList = answers => {
   const
     willNeedASuit = tripType === 'Wedding' || vibe === 'Classy',
     isFreeToGroom = tripType === 'Wedding' || vibe === 'Classy' || vibe === 'Casual',
-    willNeedToShave = tripType === 'Wedding' || vibe === 'Classy',
     isStayingWithFriends = accommodations === 'Friends',
     isShortsWeather = lowTemperature > 20,
     nightsOfSleep = Math.floor( ( returnDate - departureDate ) / ( 1000 * 60 * 60 * 24 ) );
@@ -80,18 +79,6 @@ const createPackingList = answers => {
   if ( nightsOfSleep > 3 && isStayingWithFriends ) dopp.pack( 'shampoo' );
   if ( accommodations !== 'Hotel' ) dopp.pack( 'shower gel' );
   if ( nightsOfSleep > 1 && vibe !== 'Lazy' ) dopp.pack( 'loofah' );
-
-  let shavingKit = new Container( 'Shaving Kit' );
-
-  if ( willNeedToShave ) {
-    shavingKit.packOneOfEach(
-      'shaving cream',
-      'razor',
-      'alum',
-      'nail scissors',
-      'nail file'
-    );
-  }
 
   dopp.packOneOfEach( 'basic meds' );
 
@@ -206,7 +193,6 @@ const createPackingList = answers => {
     name: name,
     preDeparture: preDeparture.asList(),
     dopp: dopp.asList(),
-    shavingKit: shavingKit.asList(),
     backpack: backpack.asList(),
     duffel: duffel.asList(),
     postArrival: postArrival.asList(),
