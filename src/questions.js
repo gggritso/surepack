@@ -80,6 +80,12 @@ module.exports = [
     default: false,
   },
   {
+    type: 'confirm',
+    name: 'willBeBugs',
+    message: 'Will there be bugs?',
+    default: false,
+  },
+  {
     type: 'input',
     name: 'sportsDays',
     message: 'How many sports days?',

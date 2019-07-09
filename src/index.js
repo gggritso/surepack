@@ -16,6 +16,7 @@ const createPackingList = answers => {
     returnDate,
     accessToBodyOfWater,
     willBeWorking,
+    willBeBugs,
     sportsDays,
     rainDays,
     leavingCanada,
@@ -27,12 +28,9 @@ const createPackingList = answers => {
 
   const
     willNeedASuit = tripType === 'Wedding' || vibe === 'Classy',
-    isFreeToGroom = tripType === 'Wedding' || vibe === 'Classy' || vibe === 'Casual',
     isStayingWithFriends = accommodations === 'Friends',
     isShortsWeather = lowTemperature > 20,
     nightsOfSleep = Math.floor( ( returnDate - departureDate ) / ( 1000 * 60 * 60 * 24 ) );
-
-  let bottomsType = 'jeans';
 
   const preDeparture = new Container( 'Pre-departure' );
 
@@ -42,32 +40,14 @@ const createPackingList = answers => {
     preDeparture.addOneOfEach( 'set thermostat to vacation', 'set vacation on CondoControlCentral', 'take out trashes', 'run dishwasher' );
   }
 
-  if ( vibe === 'Classy' ) {
-    bottomsType = 'slacks';
-  } else if ( vibe === 'Casual' ) {
-    if ( tripType === 'Road Trip' || tripType === 'Cottage' ) {
-      bottomsType = isShortsWeather ? 'gym shorts' : 'track pants';
-    } else {
-      bottomsType = isShortsWeather ? 'shorts' : 'jeans';
-    }
-  } else if ( vibe === 'Lazy' ) {
-    bottomsType = isShortsWeather ? 'gym shorts' : 'track pants';
-  }
+  preDeparture.add( 'take out compost' );
 
   const dopp = new Container( 'Dopp',
     [ 'toothbrush', 'toothpaste', 'tongue brush', 'floss' ]);
 
-  if ( isFreeToGroom ) {
-    dopp
-      .pack( 'floss threaders', nightsOfSleep + 1 )
-      .packOneOfEach( 'mouthwash', 'cleanser', 'moisturizer', 'deodorant', 'tissues' );
-  }
-
-  dopp.pack( 'lip balm' );
-
-  if ( ( sportsDays < nightsOfSleep ) && vibe !== 'Lazy' ) {
-    dopp.packOneOfEach( 'cologne', 'hair gel' );
-  }
+  dopp
+    .pack( 'floss threaders', nightsOfSleep + 1 )
+    .packOneOfEach( 'mouthwash', 'cleanser', 'moisturizer', 'deodorant', 'tissues', 'lip balm', 'cologne', 'hair gel' );
 
   if ( nightsOfSleep < 3 ) {
     dopp.pack( 'daily contact', nightsOfSleep + 1 );
@@ -76,11 +56,12 @@ const createPackingList = answers => {
     dopp.pack( 'contact lens fluid' );
   }
 
-  if ( nightsOfSleep > 3 && isStayingWithFriends ) dopp.pack( 'shampoo' );
-  if ( accommodations !== 'Hotel' ) dopp.pack( 'shower gel' );
-  if ( nightsOfSleep > 1 && vibe !== 'Lazy' ) dopp.pack( 'loofah' );
-
-  dopp.packOneOfEach( 'basic meds' );
+  if ( nightsOfSleep > 3 ) dopp.pack( 'shampoo' );
+  dopp.pack( 'shower gel' );
+  dopp.pack( 'loofah' );
+  dopp.pack( 'basic meds' );
+  
+  if ( nightsOfSleep > 2 ) dopp.pack( 'condoms' );
 
   const duffel = new Container( 'Duffel' );
 
@@ -89,7 +70,6 @@ const createPackingList = answers => {
   if ( nightsOfSleep === 1 && vibe === 'Lazy' ) setsOfClothes = 1;
 
   duffel.pack( 'underwear', setsOfClothes );
-
   duffel.pack( 'socks', setsOfClothes );
   duffel.pack( 't-shirt', setsOfClothes );
 
@@ -97,7 +77,9 @@ const createPackingList = answers => {
     duffel.pack( 'sweater', Math.min( Math.ceil( nightsOfSleep / 3 ), 3 ) );
   }
 
-  duffel.pack( bottomsType, Math.min( Math.floor( nightsOfSleep / 3 ), 3 ) );
+  duffel.pack( isShortsWeather ? 'shorts' : 'pants', Math.min( Math.floor( nightsOfSleep / 3 ), 3 ) );
+  duffel.pack( 'tank top' );
+  duffel.pack( lowTemperature < 10 ? 'track pants' : 'gym shorts' ); 
 
   if ( sportsDays > 0 ) {
     duffel.pack( 'tank top', sportsDays );
@@ -121,7 +103,7 @@ const createPackingList = answers => {
       'dress socks' );
   }
 
-  if ( tripType === 'Cottage' ) {
+  if ( willBeBugs ) {
     duffel.pack( 'high socks' );
   }
 
@@ -183,6 +165,8 @@ const createPackingList = answers => {
     backpack.pack( 'passport' );
     backpack.pack( 'SIM tool' );
     backpack.pack( 'pen' );
+    backpack.pack( 'local currency' );
+    backpack.pack( 'transit pass' );
   }
 
   const postArrival = new Container( 'Post-arrival' );
