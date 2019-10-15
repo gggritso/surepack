@@ -9,13 +9,13 @@ module.exports = [
     type: 'datetime',
     name: 'departureDate',
     message: 'When are you heading out?',
-    format: [ 'd', '/', 'm' ],
+    format: [ 'd', '/', 'mmm' ],
   },
   {
     type: 'datetime',
     name: 'returnDate',
     message: 'When are you heading back?',
-    format: [ 'd', '/', 'm' ],
+    format: [ 'd', '/', 'mmm' ],
   },
   {
     type: 'confirm',
