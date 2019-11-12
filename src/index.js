@@ -137,7 +137,7 @@ const createPackingList = answers => {
     "garbage bag"
   ]);
 
-  if (highTemperature > 10) backpack.pack("sunscreen");
+  if (highTemperature > 20) backpack.pack("sunscreen");
   if (rainDays > 1) backpack.pack("umbrella");
 
   if (accessToBodyOfWater) {
