@@ -32,6 +32,10 @@ const createPackingList = answers => {
 
   preDeparture.addOneOfEach("close all windows");
 
+  if (nightsOfSleep > 1) {
+    preDeparture.add("take out compost");
+  }
+
   if (leavingCanada || nightsOfSleep > 3) {
     preDeparture.addOneOfEach(
       "set thermostat to vacation",
@@ -40,8 +44,6 @@ const createPackingList = answers => {
       "run dishwasher"
     );
   }
-
-  preDeparture.add("take out compost");
 
   const dopp = new Container("Dopp", [
     "toothbrush",
