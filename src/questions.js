@@ -44,19 +44,13 @@ module.exports = [
   {
     type: "confirm",
     name: "willHaveLaundry",
-    message: "Will you have access to laundry?",
-    default: false
-  },
-  {
-    type: "confirm",
-    name: "willBeBugs",
-    message: "Will there be bugs?",
+    message: "Are you planning to do laundry?",
     default: false
   },
   {
     type: "input",
     name: "workouts",
-    message: "How many workkouts are you doing?",
+    message: "How many workouts are you doing?",
     filter: parseInt,
     default: 0
   },
@@ -78,5 +72,11 @@ module.exports = [
     message: "How many rain days?",
     filter: parseInt,
     default: 0
+  },
+  {
+    type: "checkbox",
+    name: "extras",
+    message: "Any extras?",
+    choices: ["bluetooth speaker", "cards", "knee socks"]
   }
 ];

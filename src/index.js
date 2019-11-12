@@ -11,14 +11,14 @@ const createPackingList = answers => {
     returnDate,
     accessToBodyOfWater,
     willBeWorking,
-    willBeBugs,
     willNeedASuit,
     willHaveLaundry,
-    worksouts,
+    workouts,
     rainDays,
     leavingCanada,
     lowTemperature,
-    highTemperature
+    highTemperature,
+    extras
   } = answers;
 
   const laundryThreshold = 5;
@@ -127,10 +127,6 @@ const createPackingList = answers => {
     );
   }
 
-  if (willBeBugs) {
-    duffel.pack("high socks");
-  }
-
   const backpack = new Container("Backpack", [
     "sunglasses in case",
     "glasses in case",
@@ -138,6 +134,8 @@ const createPackingList = answers => {
     "phone charger",
     "garbage bag"
   ]);
+
+  extras.forEach(extra => backpack.pack(extra));
 
   if (highTemperature > 20) backpack.pack("sunscreen");
   if (rainDays > 1) backpack.pack("umbrella");
