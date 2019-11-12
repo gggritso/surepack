@@ -160,6 +160,10 @@ const createPackingList = answers => {
     backpack.pack("laptop and charger");
   }
 
+  if (willBeWorking) {
+    backpack.pack("laptop extension cord");
+  }
+
   if (workouts > 0) {
     dopp.pack("polysporin");
     dopp.pack("band-aids");
