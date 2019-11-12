@@ -13,12 +13,15 @@ const createPackingList = answers => {
     willBeWorking,
     willBeBugs,
     willNeedASuit,
+    willHaveLaundry,
     sportsDays,
     rainDays,
     leavingCanada,
     lowTemperature,
     highTemperature
   } = answers;
+
+  const laundryThreshold = 5;
 
   const isShortsWeather = lowTemperature > 20,
     nightsOfSleep = Math.floor(
@@ -76,7 +79,13 @@ const createPackingList = answers => {
 
   const duffel = new Container("Duffel");
 
-  let setsOfClothes = Math.min(nightsOfSleep + 1, 6);
+  let setsOfClothes;
+
+  if (willHaveLaundry) {
+    setsOfClothes = Math.min(nightsOfSleep + 1, laundryThreshold);
+  } else {
+    setsOfClothes = nightsOfSleep + 1;
+  }
 
   duffel.pack("underwear", setsOfClothes);
   duffel.pack("socks", setsOfClothes);
@@ -141,7 +150,7 @@ const createPackingList = answers => {
     backpack.pack("pack of cards");
   }
 
-  if (nightsOfSleep > 5) {
+  if (nightsOfSleep > laundryThreshold && willHaveLaundry) {
     duffel.pack("laundry pods", Math.max(Math.floor(nightsOfSleep / 5), 1));
   }
 
