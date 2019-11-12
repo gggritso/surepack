@@ -14,7 +14,7 @@ const createPackingList = answers => {
     willBeBugs,
     willNeedASuit,
     willHaveLaundry,
-    sportsDays,
+    worksouts,
     rainDays,
     leavingCanada,
     lowTemperature,
@@ -102,11 +102,11 @@ const createPackingList = answers => {
   duffel.pack("tank top");
   duffel.pack(lowTemperature < 10 ? "track pants" : "gym shorts");
 
-  if (sportsDays > 0) {
-    duffel.pack("tank top", sportsDays);
-    duffel.pack("shorts", sportsDays);
-    duffel.pack("sports socks", sportsDays);
-    duffel.pack("sports underwear", sportsDays);
+  if (workouts > 0) {
+    duffel.pack("tank top", workouts);
+    duffel.pack("shorts", workouts);
+    duffel.pack("sports socks", workouts);
+    duffel.pack("sports underwear", workouts);
     duffel.pack("cross-training shoes");
   }
 
@@ -160,7 +160,7 @@ const createPackingList = answers => {
     backpack.pack("laptop and charger");
   }
 
-  if (sportsDays > 0) {
+  if (workouts > 0) {
     dopp.pack("polysporin");
     dopp.pack("band-aids");
   }

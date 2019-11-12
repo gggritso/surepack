@@ -55,8 +55,8 @@ module.exports = [
   },
   {
     type: "input",
-    name: "sportsDays",
-    message: "How many sports days?",
+    name: "workouts",
+    message: "How many workkouts are you doing?",
     filter: parseInt,
     default: 0
   },
