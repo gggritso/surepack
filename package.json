@@ -12,6 +12,8 @@
   "author": "George Gritsouk <george.gritsouk@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-prettier": "^3.1.1",
     "handlebars": "^4.1.1",
     "inquirer": "^5.2.0",
     "inquirer-datepicker-prompt": "^0.4.2",
