@@ -1,8 +1,8 @@
-# Surepack
+# surepack
 
-Surepack is a symptom of an intense A-type-ism. It's an interactive CLI packing list generator that exports to Markdown, HTML, or OmniFocus TaskPaper format.
+`surepack` is an interactive CLI packing list generator.
 
-It asks a few basic questions (trip type, duration, temperature, etc.) and spits out a checkable packing list.
+It asks a few basic questions (trip type, duration, temperature, etc.) and spits out a packing list.
 
 ```
 ~/C/surepack (master ∂ ↑)  surepack
@@ -12,5 +12,3 @@ It asks a few basic questions (trip type, duration, temperature, etc.) and spits
   Road Trip
   Wedding
 ```
-
-You can ask for a format (one of `taskpaper` or `markdown`) using the `--format` flag e.g., `surepack --format markdown`.
