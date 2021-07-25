@@ -1,12 +1,14 @@
 const inquirer = require("inquirer");
 inquirer.registerPrompt("datetime", require("inquirer-datepicker-prompt"));
 
+const { format } = require("date-fns");
+
 const questions = require("./questions");
 const Container = require("./container");
 
-const createPackingList = answers => {
+const createPackingList = (answers) => {
   const {
-    name,
+    destination,
     departureDate,
     returnDate,
     accessToBodyOfWater,
@@ -19,15 +21,13 @@ const createPackingList = answers => {
     leavingCanada,
     lowTemperature,
     highTemperature,
-    extras
+    extras,
   } = answers;
 
   const laundryThreshold = 5;
 
   const isShortsWeather = lowTemperature > 20,
-    nightsOfSleep = Math.floor(
-      (returnDate - departureDate) / (1000 * 60 * 60 * 24)
-    );
+    nightsOfSleep = Math.floor((returnDate - departureDate) / (1000 * 60 * 60 * 24));
 
   const preDeparture = new Container("Pre-departure");
 
@@ -46,26 +46,11 @@ const createPackingList = answers => {
     );
   }
 
-  const dopp = new Container("Dopp", [
-    "toothbrush",
-    "toothpaste",
-    "tongue brush",
-    "floss",
-    "lip balm"
-  ]);
+  const dopp = new Container("Dopp", ["toothbrush", "toothpaste", "tongue brush", "floss", "lip balm"]);
 
   dopp
     .pack("floss threaders", nightsOfSleep + 1)
-    .packOneOfEach(
-      "mouthwash",
-      "cleanser",
-      "moisturizer",
-      "deodorant",
-      "tissues",
-      "lip balm",
-      "cologne",
-      "hair gel"
-    );
+    .packOneOfEach("mouthwash", "cleanser", "moisturizer", "deodorant", "tissues", "lip balm", "cologne", "hair gel");
 
   if (nightsOfSleep < 3) {
     dopp.pack("daily contact", nightsOfSleep + 1);
@@ -98,10 +83,7 @@ const createPackingList = answers => {
     duffel.pack("sweater", Math.min(Math.ceil(nightsOfSleep / 3), 3));
   }
 
-  duffel.pack(
-    isShortsWeather ? "shorts" : "pants",
-    Math.min(Math.floor(nightsOfSleep / 3), 3)
-  );
+  duffel.pack(isShortsWeather ? "shorts" : "pants", Math.min(Math.floor(nightsOfSleep / 3), 3));
   duffel.pack("tank top");
   duffel.pack(lowTemperature < 10 ? "track pants" : "gym shorts");
 
@@ -118,14 +100,7 @@ const createPackingList = answers => {
   }
 
   if (willNeedASuit) {
-    duffel.packOneOfEach(
-      "suit",
-      "formal shoes",
-      "formal belt",
-      "tie",
-      "dress shirt",
-      "dress socks"
-    );
+    duffel.packOneOfEach("suit", "formal shoes", "formal belt", "tie", "dress shirt", "dress socks");
   }
 
   const backpack = new Container("Backpack", [
@@ -134,7 +109,7 @@ const createPackingList = answers => {
     "Kindle",
     "phone charger",
     "garbage bag",
-    "dopp kit"
+    "dopp kit",
   ]);
 
   if (areThereBugs) {
@@ -142,7 +117,7 @@ const createPackingList = answers => {
     backpack.pack("knee socks");
   }
 
-  extras.forEach(extra => backpack.pack(extra));
+  extras.forEach((extra) => backpack.pack(extra));
 
   if (highTemperature > 20) backpack.pack("sunscreen");
   if (rainDays > 1) backpack.pack("umbrella");
@@ -191,12 +166,12 @@ const createPackingList = answers => {
   postArrival.add("unpack");
 
   return {
-    name: name,
+    name: `${destination} ${format(departureDate, "MMM do")} - ${format(returnDate, "MMM do")}`,
     preDeparture: preDeparture.asList(),
     dopp: dopp.asList(),
     backpack: backpack.asList(),
     duffel: duffel.asList(),
-    postArrival: postArrival.asList()
+    postArrival: postArrival.asList(),
   };
 };
 

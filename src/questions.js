@@ -1,89 +1,89 @@
 module.exports = [
   {
     type: "input",
-    name: "name",
-    message: "What are you calling this trip?",
-    default: "My Trip"
+    name: "destination",
+    message: "Where are you going?",
+    default: "Trip",
   },
   {
     type: "datetime",
     name: "departureDate",
     message: "When are you heading out?",
-    format: ["d", "/", "mmm"]
+    format: ["d", "/", "mmm"],
   },
   {
     type: "datetime",
     name: "returnDate",
     message: "When are you heading back?",
-    format: ["d", "/", "mmm"]
+    format: ["d", "/", "mmm"],
   },
   {
     type: "confirm",
     name: "leavingCanada",
     message: "Leaving Canada?",
-    default: false
+    default: false,
   },
   {
     type: "confirm",
     name: "accessToBodyOfWater",
     message: "Access to water or hot tub?",
-    default: false
+    default: false,
   },
   {
     type: "confirm",
     name: "willNeedASuit",
     message: "Will you need a suit?",
-    default: false
+    default: false,
   },
   {
     type: "confirm",
     name: "willBeWorking",
     message: "Will you be working?",
-    default: false
+    default: false,
   },
   {
     type: "confirm",
     name: "willHaveLaundry",
     message: "Are you planning to do laundry?",
-    default: false
+    default: false,
   },
   {
     type: "input",
     name: "workouts",
     message: "How many workouts are you doing?",
     filter: parseInt,
-    default: 0
+    default: 0,
   },
   {
     type: "input",
     name: "lowTemperature",
     message: "What’s the low temperature?",
-    filter: parseInt
+    filter: parseInt,
   },
   {
     type: "input",
     name: "highTemperature",
     message: "What’s the high temperature?",
-    filter: parseInt
+    filter: parseInt,
   },
   {
     type: "input",
     name: "rainDays",
     message: "How many rain days?",
     filter: parseInt,
-    default: 0
+    default: 0,
   },
   {
     type: "confirm",
     name: "areThereBugs",
     message: "Will there be bugs?",
     filter: parseInt,
-    default: false
+    default: false,
   },
   {
     type: "checkbox",
     name: "extras",
     message: "Any extras?",
-    choices: ["bluetooth speaker", "cards", "chess set", "Instax"]
-  }
+    choices: ["bluetooth speaker", "cards", "chess set", "Instax"],
+  },
 ];
