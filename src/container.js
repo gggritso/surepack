@@ -6,7 +6,7 @@ class Container {
     this.items = [];
 
     if (items.length) {
-      items.forEach(item => {
+      items.forEach((item) => {
         this.pack(item);
       });
     }
@@ -20,7 +20,7 @@ class Container {
     if (quantity > 0) {
       this.items.push({
         item,
-        quantity
+        quantity,
       });
     }
 
@@ -32,7 +32,7 @@ class Container {
   }
 
   packOneOfEach() {
-    [...arguments].forEach(item => {
+    [...arguments].forEach((item) => {
       this.pack(item, 1);
     });
 
