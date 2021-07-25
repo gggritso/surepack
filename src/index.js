@@ -128,10 +128,6 @@ const createPackingList = (answers) => {
     duffel.pack("flip flops");
   }
 
-  if (nightsOfSleep > 4) {
-    backpack.pack("pack of cards");
-  }
-
   if (nightsOfSleep > laundryThreshold && willHaveLaundry) {
     duffel.pack("laundry pods", Math.max(Math.floor(nightsOfSleep / 5), 1));
   }
