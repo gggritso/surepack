@@ -118,7 +118,7 @@ const createPackingList = (answers) => {
 
   if (areThereBugs) {
     backpack.pack("bug spray");
-    backpack.pack("knee socks");
+    duffel.pack("knee socks");
   }
 
   extras.forEach((extra) => backpack.pack(extra));
