@@ -74,6 +74,13 @@ module.exports = [
     default: 0
   },
   {
+    type: "confirm",
+    name: "areThereBugs",
+    message: "Will there be bugs?",
+    filter: parseInt,
+    default: false
+  },
+  {
     type: "checkbox",
     name: "extras",
     message: "Any extras?",

@@ -15,6 +15,7 @@ const createPackingList = answers => {
     willHaveLaundry,
     workouts,
     rainDays,
+    areThereBugs,
     leavingCanada,
     lowTemperature,
     highTemperature,
@@ -136,6 +137,11 @@ const createPackingList = answers => {
     "garbage bag",
     "dopp kit"
   ]);
+
+  if (areThereBugs) {
+    backpack.pack("bug spray");
+    backpack.pack("knee socks");
+  }
 
   extras.forEach(extra => backpack.pack(extra));
 
