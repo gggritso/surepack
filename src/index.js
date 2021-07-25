@@ -132,7 +132,8 @@ const createPackingList = answers => {
     "glasses in case",
     "Kindle",
     "phone charger",
-    "garbage bag"
+    "garbage bag",
+    "dopp kit"
   ]);
 
   extras.forEach(extra => backpack.pack(extra));
