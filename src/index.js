@@ -110,7 +110,7 @@ const createPackingList = (answers) => {
   const backpack = new Container("Backpack", [
     "sunglasses in case",
     "glasses in case",
-    "Kindle",
+    "Kobo",
     "phone charger",
     "garbage bag",
     "dopp kit",
