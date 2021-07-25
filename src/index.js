@@ -99,6 +99,10 @@ const createPackingList = (answers) => {
     duffel.pack("second pair of shoes");
   }
 
+  if (nightsOfSleep > 1) {
+    duffel.pack("laundry compression bag");
+  }
+
   if (willNeedASuit) {
     duffel.packOneOfEach("suit", "formal shoes", "formal belt", "tie", "dress shirt", "dress socks");
   }
