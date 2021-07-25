@@ -49,7 +49,8 @@ const createPackingList = answers => {
     "toothbrush",
     "toothpaste",
     "tongue brush",
-    "floss"
+    "floss",
+    "lip balm"
   ]);
 
   dopp
