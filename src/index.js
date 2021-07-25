@@ -76,7 +76,6 @@ const createPackingList = answers => {
 
   if (nightsOfSleep > 3) dopp.pack("shampoo");
   dopp.pack("shower gel");
-  dopp.pack("loofah");
   dopp.pack("basic meds");
 
   if (nightsOfSleep > 2) dopp.pack("condoms");
