@@ -168,8 +168,8 @@ const createPackingList = (answers) => {
   return {
     name: `${destination} ${format(departureDate, "MMM do")} - ${format(returnDate, "MMM do")}`,
     destination: destination,
-    departureDate: `${format(departureDate, "MMM do")}`,
-    returnDate: `${format(returnDate, "MMM do")}`,
+    departureDate: departureDate,
+    returnDate: returnDate,
     preDeparture: preDeparture.asList(),
     dopp: dopp.asList(),
     backpack: backpack.asList(),
