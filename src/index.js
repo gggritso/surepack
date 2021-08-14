@@ -119,6 +119,7 @@ const createPackingList = (answers) => {
   if (areThereBugs) {
     backpack.pack("bug spray");
     duffel.pack("knee socks");
+    duffel.pack("bug net");
   }
 
   extras.forEach((extra) => backpack.pack(extra));
