@@ -1,16 +1,17 @@
 #!/usr/bin/env node
 
-const fs = require("fs");
 const argv = require("yargs").argv;
-
-const handlebars = require("handlebars");
 
 const surepack = require("../src/index");
 
-const path =
-  __dirname + "/../src/" + (argv.format || "markdown") + ".handlebars";
-const template = handlebars.compile(fs.readFileSync(path).toString());
+const MarkdownFormatter = require("../src/MarkdownFormatter");
 
-surepack().then(packingList => {
-  console.log(template(packingList));
+const format = argv.format || "markdown";
+
+const formatter = {
+  markdown: MarkdownFormatter,
+}[format];
+
+surepack().then((packingList) => {
+  console.log(formatter.format(packingList));
 });
