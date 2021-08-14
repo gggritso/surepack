@@ -50,7 +50,7 @@ const createPackingList = (answers) => {
 
   dopp
     .pack("floss threaders", nightsOfSleep + 1)
-    .packOneOfEach("mouthwash", "cleanser", "moisturizer", "deodorant", "tissues", "lip balm", "cologne", "hair gel");
+    .packOneOfEach("mouthwash", "cleanser", "moisturizer", "deodorant", "lip balm", "cologne", "hair gel");
 
   if (nightsOfSleep < 3) {
     dopp.pack("daily contact", nightsOfSleep + 1);
@@ -110,6 +110,7 @@ const createPackingList = (answers) => {
   const backpack = new Container("Backpack", [
     "sunglasses in case",
     "glasses in case",
+    "tissues",
     "Kobo",
     "phone charger",
     "garbage bag",
