@@ -46,7 +46,7 @@ const createPackingList = (answers) => {
     );
   }
 
-  const dopp = new Container("Dopp", ["toothbrush", "toothpaste", "tongue brush", "floss", "lip balm"]);
+  const dopp = new Container("Dopp", ["toothbrush", "toothpaste", "tongue brush", "lip balm"]);
 
   dopp
     .pack("floss threaders", nightsOfSleep + 1)
