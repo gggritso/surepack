@@ -75,6 +75,7 @@ const createPackingList = (answers) => {
     setsOfClothes = nightsOfSleep + 1;
   }
 
+  duffel.pack("mask", setsOfClothes);
   duffel.pack("underwear", setsOfClothes);
   duffel.pack("socks", setsOfClothes);
   duffel.pack("t-shirt", setsOfClothes);
