@@ -1,6 +1,6 @@
 {
   "name": "surepack",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Packing list generator",
   "main": "src/index.js",
   "scripts": {
