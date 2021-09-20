@@ -86,7 +86,7 @@ const createPackingList = (answers) => {
 
   duffel.pack(isShortsWeather ? "shorts" : "pants", Math.min(Math.floor(nightsOfSleep / 3), 3));
   duffel.pack("tank top");
-  duffel.pack(lowTemperature < 10 ? "track pants" : "gym shorts");
+  duffel.pack(lowTemperature < 15 ? "track pants" : "gym shorts");
 
   if (workouts > 0) {
     duffel.pack("tank top", workouts);
