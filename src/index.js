@@ -46,11 +46,21 @@ const createPackingList = (answers) => {
     );
   }
 
-  const dopp = new Container("Dopp", ["toothbrush", "toothpaste", "tongue brush", "lip balm"]);
+  const dopp = new Container("Dopp", [
+    "toothbrush",
+    "toothpaste",
+    "tongue brush",
+  ]);
 
   dopp
     .pack("floss threaders", nightsOfSleep + 1)
-    .packOneOfEach("mouthwash", "cleanser", "moisturizer", "deodorant", "lip balm", "cologne");
+    .packOneOfEach(
+      "mouthwash",
+      "cleanser",
+      "moisturizer",
+      "deodorant",
+      "cologne"
+    );
 
   if (nightsOfSleep < 3) {
     dopp.pack("daily contact", nightsOfSleep + 1);
@@ -115,6 +125,7 @@ const createPackingList = (answers) => {
     "phone charger",
     "garbage bag",
     "dopp kit",
+    "lip balm",
   ]);
 
   if (areThereBugs) {
