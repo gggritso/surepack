@@ -27,7 +27,9 @@ const createPackingList = (answers) => {
   const laundryThreshold = 5;
 
   const isShortsWeather = lowTemperature > 20,
-    nightsOfSleep = Math.floor((returnDate - departureDate) / (1000 * 60 * 60 * 24));
+    nightsOfSleep = Math.floor(
+      (returnDate - departureDate) / (1000 * 60 * 60 * 24)
+    );
 
   const preDeparture = new Container("Pre-departure");
 
@@ -94,7 +96,10 @@ const createPackingList = (answers) => {
     duffel.pack("sweater", Math.min(Math.ceil(nightsOfSleep / 3), 3));
   }
 
-  duffel.pack(isShortsWeather ? "shorts" : "pants", Math.min(Math.floor(nightsOfSleep / 3), 3));
+  duffel.pack(
+    isShortsWeather ? "shorts" : "pants",
+    Math.min(Math.floor(nightsOfSleep / 3), 3)
+  );
   duffel.pack("tank top");
   duffel.pack(lowTemperature < 15 ? "track pants" : "gym shorts");
 
@@ -115,7 +120,14 @@ const createPackingList = (answers) => {
   }
 
   if (willNeedASuit) {
-    duffel.packOneOfEach("suit", "formal shoes", "formal belt", "tie", "dress shirt", "dress socks");
+    duffel.packOneOfEach(
+      "suit",
+      "formal shoes",
+      "formal belt",
+      "tie",
+      "dress shirt",
+      "dress socks"
+    );
   }
 
   const backpack = new Container("Backpack", [
@@ -179,7 +191,10 @@ const createPackingList = (answers) => {
   postArrival.add("unpack");
 
   return {
-    name: `${destination} ${format(departureDate, "MMM do")} - ${format(returnDate, "MMM do")}`,
+    name: `${destination} ${format(departureDate, "MMM do")} - ${format(
+      returnDate,
+      "MMM do"
+    )}`,
     destination: destination,
     departureDate: departureDate,
     returnDate: returnDate,

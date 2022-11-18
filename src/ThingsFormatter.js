@@ -73,7 +73,9 @@ class ThingsFormatter {
       },
     ];
 
-    return "things:///json?data=" + querystring.escape(JSON.stringify(thingsData));
+    return (
+      "things:///json?data=" + querystring.escape(JSON.stringify(thingsData))
+    );
   }
 }
 
