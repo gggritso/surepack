@@ -37,14 +37,14 @@ const createPackingList = (answers) => {
 
   if (nightsOfSleep > 1) {
     preDeparture.add("take out compost");
+    preDeparture.add("run dishwasher");
   }
 
   if (leavingCanada || nightsOfSleep > 3) {
     preDeparture.addOneOfEach(
       "set thermostat to vacation",
       "set vacation on CondoControlCentral",
-      "take out trashes",
-      "run dishwasher"
+      "take out trashes"
     );
   }
 
