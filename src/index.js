@@ -163,8 +163,6 @@ const createPackingList = (answers) => {
     duffel.pack("laundry pods", Math.max(Math.floor(nightsOfSleep / 5), 1));
   }
 
-  if (lowTemperature < 10) duffel.pack("slippers");
-
   if (willBeWorking || nightsOfSleep > 3) {
     backpack.pack("laptop and charger");
   }
