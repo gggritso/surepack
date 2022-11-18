@@ -91,6 +91,7 @@ module.exports = [
       "cards",
       "chess set",
       "Instax",
+      "head lamp",
       "slippers",
     ],
   },
