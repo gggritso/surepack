@@ -84,6 +84,13 @@ module.exports = [
     type: "checkbox",
     name: "extras",
     message: "Any extras?",
-    choices: ["bluetooth speaker", "cards", "chess set", "Instax", "slippers"],
+    choices: [
+      "water bottle",
+      "bluetooth speaker",
+      "cards",
+      "chess set",
+      "Instax",
+      "slippers",
+    ],
   },
 ];
