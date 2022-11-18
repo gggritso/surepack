@@ -58,6 +58,7 @@ const createPackingList = (answers) => {
     .pack("floss threaders", nightsOfSleep + 1)
     .packOneOfEach(
       "mouthwash",
+      "floss",
       "cleanser",
       "moisturizer",
       "deodorant",
