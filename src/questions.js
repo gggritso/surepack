@@ -86,6 +86,7 @@ module.exports = [
     message: "Any extras?",
     choices: [
       "water bottle",
+      "drinks",
       "bluetooth speaker",
       "cards",
       "chess set",
