@@ -62,7 +62,8 @@ const createPackingList = (answers) => {
       "cleanser",
       "moisturizer",
       "deodorant",
-      "cologne"
+      "cologne",
+      "pomade"
     );
 
   if (nightsOfSleep < 3) {
