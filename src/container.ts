@@ -1,7 +1,11 @@
-const pluralize = require("pluralize");
+import pluralize from "pluralize";
+import { ContainerItem } from "./types/types";
 
-class Container {
-  constructor(name, items = []) {
+export class Container {
+  private name: string;
+  private items: ContainerItem[];
+
+  constructor(name: string, items: string[] = []) {
     this.name = name;
     this.items = [];
 
@@ -12,11 +16,11 @@ class Container {
     }
   }
 
-  add(item, quantity) {
+  add(item: string, quantity?: number): void {
     this.pack(item, quantity);
   }
 
-  pack(item, quantity = 1) {
+  pack(item: string, quantity: number = 1): this {
     if (quantity > 0) {
       this.items.push({
         item,
@@ -27,28 +31,28 @@ class Container {
     return this;
   }
 
-  addOneOfEach() {
-    this.packOneOfEach(...arguments);
+  addOneOfEach(...items: string[]): void {
+    this.packOneOfEach(...items);
   }
 
-  packOneOfEach() {
-    [...arguments].forEach((item) => {
+  packOneOfEach(...items: string[]): this {
+    items.forEach((item) => {
       this.pack(item, 1);
     });
 
     return this;
   }
 
-  asList() {
+  asList(): string[] {
     return this.items.map(({ item, quantity }) => {
       if (quantity === 1) return item;
       return `${quantity} ${pluralize(item)}`;
     });
   }
 
-  length() {
+  length(): number {
     return this.items.length;
   }
 }
 
-module.exports = Container;
+export default Container;

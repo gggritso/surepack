@@ -1,4 +1,6 @@
-module.exports = [
+import { QuestionCollection } from "inquirer";
+
+export const questions: QuestionCollection = [
   {
     type: "input",
     name: "destination",
@@ -57,13 +59,13 @@ module.exports = [
   {
     type: "input",
     name: "lowTemperature",
-    message: "What’s the low temperature?",
+    message: "What's the low temperature?",
     filter: parseInt,
   },
   {
     type: "input",
     name: "highTemperature",
-    message: "What’s the high temperature?",
+    message: "What's the high temperature?",
     filter: parseInt,
   },
   {
@@ -95,4 +97,4 @@ module.exports = [
       "slippers",
     ],
   },
-];
+] as const;
