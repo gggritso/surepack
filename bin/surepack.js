@@ -4,8 +4,9 @@ const argv = require("yargs").argv;
 
 const surepack = require("../dist/index").default;
 
-const ThingsFormatter = require("../dist/ThingsFormatter");
-const MarkdownFormatter = require("../dist/MarkdownFormatter");
+const ThingsFormatter = require("../dist/ThingsFormatter").ThingsFormatter;
+const MarkdownFormatter =
+  require("../dist/MarkdownFormatter").MarkdownFormatter;
 
 const format = argv.format || "things";
 
