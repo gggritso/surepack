@@ -17,30 +17,35 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "yarn"
+          cache: "pnpm"
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Check formatting
-        run: yarn format:check
+        run: pnpm format:check
 
       - name: Lint
-        run: yarn lint
+        run: pnpm lint
 
       - name: Type check
-        run: yarn typecheck
+        run: pnpm typecheck
 
       - name: Run tests
-        run: yarn test
+        run: pnpm test
 
       - name: Build
-        run: yarn build
+        run: pnpm build
 
       - name: Security audit
-        run: yarn audit --level high
+        run: pnpm audit --prod
         continue-on-error: true

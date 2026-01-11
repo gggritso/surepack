@@ -1,58 +1,56 @@
 import pluralize from "pluralize";
-import { ContainerItem } from "./types/types";
+import type { ContainerItem } from "./types/types";
 
 export class Container {
-  private name: string;
-  private items: ContainerItem[];
+	private items: ContainerItem[];
 
-  constructor(name: string, items: string[] = []) {
-    this.name = name;
-    this.items = [];
+	constructor(_name: string, items: string[] = []) {
+		this.items = [];
 
-    if (items.length) {
-      items.forEach((item) => {
-        this.pack(item);
-      });
-    }
-  }
+		if (items.length) {
+			items.forEach((item) => {
+				this.pack(item);
+			});
+		}
+	}
 
-  add(item: string, quantity?: number): void {
-    this.pack(item, quantity);
-  }
+	add(item: string, quantity?: number): void {
+		this.pack(item, quantity);
+	}
 
-  pack(item: string, quantity: number = 1): this {
-    if (quantity > 0) {
-      this.items.push({
-        item,
-        quantity,
-      });
-    }
+	pack(item: string, quantity: number = 1): this {
+		if (quantity > 0) {
+			this.items.push({
+				item,
+				quantity,
+			});
+		}
 
-    return this;
-  }
+		return this;
+	}
 
-  addOneOfEach(...items: string[]): void {
-    this.packOneOfEach(...items);
-  }
+	addOneOfEach(...items: string[]): void {
+		this.packOneOfEach(...items);
+	}
 
-  packOneOfEach(...items: string[]): this {
-    items.forEach((item) => {
-      this.pack(item, 1);
-    });
+	packOneOfEach(...items: string[]): this {
+		items.forEach((item) => {
+			this.pack(item, 1);
+		});
 
-    return this;
-  }
+		return this;
+	}
 
-  asList(): string[] {
-    return this.items.map(({ item, quantity }) => {
-      if (quantity === 1) return item;
-      return `${quantity} ${pluralize(item)}`;
-    });
-  }
+	asList(): string[] {
+		return this.items.map(({ item, quantity }) => {
+			if (quantity === 1) return item;
+			return `${quantity} ${pluralize(item)}`;
+		});
+	}
 
-  length(): number {
-    return this.items.length;
-  }
+	length(): number {
+		return this.items.length;
+	}
 }
 
 export default Container;

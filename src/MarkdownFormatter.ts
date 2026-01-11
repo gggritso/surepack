@@ -1,5 +1,5 @@
 import handlebars from "handlebars";
-import { PackingList } from "./types/types";
+import type { PackingList } from "./types/types";
 
 const TEMPLATE = `# {{name}} Packing List
 
@@ -37,8 +37,8 @@ const TEMPLATE = `# {{name}} Packing List
 `;
 
 export class MarkdownFormatter {
-  static format(packingList: PackingList): string {
-    const template = handlebars.compile(TEMPLATE);
-    return template(packingList);
-  }
+	static format(packingList: PackingList): string {
+		const template = handlebars.compile(TEMPLATE);
+		return template(packingList);
+	}
 }

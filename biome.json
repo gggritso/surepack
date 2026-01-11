@@ -1,0 +1,20 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.0.0/schema.json",
+  "files": {
+    "includes": ["src/**/*.ts", "src/**/*.js"],
+    "ignoreUnknown": true
+  },
+  "linter": {
+    "rules": {
+      "complexity": {
+        "noStaticOnlyClass": "off"
+      },
+      "style": {
+        "noNonNullAssertion": "off"
+      },
+      "suspicious": {
+        "useIterableCallbackReturn": "off"
+      }
+    }
+  }
+}
