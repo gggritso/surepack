@@ -23,7 +23,7 @@ export class ThingsFormatter {
                   title: item,
                   when: formattedDepartureDate,
                 },
-              }),
+              })
             ),
             {
               type: "to-do",
@@ -36,7 +36,7 @@ export class ThingsFormatter {
                     attributes: {
                       title: item,
                     },
-                  }),
+                  })
                 ),
               },
             },
@@ -51,7 +51,7 @@ export class ThingsFormatter {
                     attributes: {
                       title: item,
                     },
-                  }),
+                  })
                 ),
               },
             },
@@ -66,7 +66,7 @@ export class ThingsFormatter {
                     attributes: {
                       title: item,
                     },
-                  }),
+                  })
                 ),
               },
             },
@@ -77,15 +77,13 @@ export class ThingsFormatter {
                   title: item,
                   when: formattedReturnDate,
                 },
-              }),
+              })
             ),
           ],
         },
       },
     ];
 
-    return (
-      "things:///json?data=" + querystring.escape(JSON.stringify(thingsData))
-    );
+    return "things:///json?data=" + querystring.escape(JSON.stringify(thingsData));
   }
 }

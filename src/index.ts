@@ -1,10 +1,6 @@
-import inquirer from "inquirer";
-import inquirerDatepicker from "inquirer-datepicker-prompt";
-inquirer.registerPrompt("datetime", inquirerDatepicker);
-
 import { format } from "date-fns";
 
-import { questions } from "./questions";
+import { askQuestions } from "./questions";
 import { Container } from "./container";
 import { Answers, PackingList } from "./types/types";
 
@@ -30,7 +26,7 @@ const createPackingList = (answers: Answers): PackingList => {
 
   const isShortsWeather = lowTemperature > 20,
     nightsOfSleep = Math.floor(
-      (returnDate.getTime() - departureDate.getTime()) / (1000 * 60 * 60 * 24),
+      (returnDate.getTime() - departureDate.getTime()) / (1000 * 60 * 60 * 24)
     );
 
   const preDeparture = new Container("Pre-departure");
@@ -46,15 +42,11 @@ const createPackingList = (answers: Answers): PackingList => {
     preDeparture.addOneOfEach(
       "set thermostat to vacation",
       "set vacation on CondoControlCentral",
-      "take out trashes",
+      "take out trashes"
     );
   }
 
-  const dopp = new Container("Dopp", [
-    "toothbrush",
-    "toothpaste",
-    "tongue brush",
-  ]);
+  const dopp = new Container("Dopp", ["toothbrush", "toothpaste", "tongue brush"]);
 
   dopp
     .pack("floss threaders", nightsOfSleep + 1)
@@ -65,7 +57,7 @@ const createPackingList = (answers: Answers): PackingList => {
       "moisturizer",
       "deodorant",
       "cologne",
-      "pomade",
+      "pomade"
     );
 
   if (nightsOfSleep < 3) {
@@ -100,10 +92,7 @@ const createPackingList = (answers: Answers): PackingList => {
     duffel.pack("sweater", Math.min(Math.ceil(nightsOfSleep / 3), 3));
   }
 
-  duffel.pack(
-    isShortsWeather ? "shorts" : "pants",
-    Math.min(Math.floor(nightsOfSleep / 3), 3),
-  );
+  duffel.pack(isShortsWeather ? "shorts" : "pants", Math.min(Math.floor(nightsOfSleep / 3), 3));
   duffel.pack("tank top");
   duffel.pack(lowTemperature < 15 ? "track pants" : "gym shorts");
 
@@ -130,7 +119,7 @@ const createPackingList = (answers: Answers): PackingList => {
       "formal belt",
       "tie",
       "dress shirt",
-      "dress socks",
+      "dress socks"
     );
   }
 
@@ -193,10 +182,7 @@ const createPackingList = (answers: Answers): PackingList => {
   postArrival.add("unpack");
 
   return {
-    name: `${destination} ${format(departureDate, "MMM do")} - ${format(
-      returnDate,
-      "MMM do",
-    )}`,
+    name: `${destination} ${format(departureDate, "MMM do")} - ${format(returnDate, "MMM do")}`,
     destination: destination,
     departureDate: departureDate,
     returnDate: returnDate,
@@ -208,8 +194,7 @@ const createPackingList = (answers: Answers): PackingList => {
   };
 };
 
-export default (): Promise<PackingList> => {
-  return inquirer
-    .prompt(questions)
-    .then((answers) => createPackingList(answers as Answers));
+export default async (): Promise<PackingList> => {
+  const answers = await askQuestions();
+  return createPackingList(answers);
 };

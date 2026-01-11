@@ -10,11 +10,28 @@ const MarkdownFormatter =
 
 const format = argv.format || "things";
 
-const formatter = {
+const formatters = {
   markdown: MarkdownFormatter,
   things: ThingsFormatter,
-}[format];
+};
 
-surepack().then((packingList) => {
-  console.log(formatter.format(packingList));
-});
+const formatter = formatters[format];
+
+if (!formatter) {
+  console.error(`Unknown format: ${format}`);
+  console.error(`Available formats: ${Object.keys(formatters).join(", ")}`);
+  process.exit(1);
+}
+
+surepack()
+  .then((packingList) => {
+    console.log(formatter.format(packingList));
+  })
+  .catch((error) => {
+    if (error.name === "ExitPromptError") {
+      // User cancelled with Ctrl+C
+      process.exit(0);
+    }
+    console.error("Error generating packing list:", error.message);
+    process.exit(1);
+  });

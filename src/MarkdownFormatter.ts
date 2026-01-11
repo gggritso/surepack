@@ -1,12 +1,44 @@
-import fs from "fs";
 import handlebars from "handlebars";
 import { PackingList } from "./types/types";
 
+const TEMPLATE = `# {{name}} Packing List
+
+## Pre-Departure
+{{#each preDeparture }}
+- [ ] {{this}}
+{{/each}}
+
+## Dopp
+{{#each dopp }}
+- [ ] {{this}}
+{{/each}}
+{{#if shavingKit.length}}
+
+## Shaving Kit
+{{#each shavingKit }}
+- [ ] {{this}}
+{{/each}}
+{{/if}}
+
+## Backpack
+{{#each backpack }}
+- [ ] {{this}}
+{{/each}}
+
+## Duffel
+{{#each duffel }}
+- [ ] {{this}}
+{{/each}}
+
+## Post-Arrival
+{{#each postArrival }}
+- [ ] {{this}}
+{{/each}}
+`;
+
 export class MarkdownFormatter {
   static format(packingList: PackingList): string {
-    const path = __dirname + "/../src/markdown.handlebars";
-    const template = handlebars.compile(fs.readFileSync(path).toString());
-
+    const template = handlebars.compile(TEMPLATE);
     return template(packingList);
   }
 }
