@@ -18,7 +18,7 @@
     "test:watch": "jest --watch"
   },
   "bin": {
-    "surepack": "./bin/surepack.js"
+    "surepack": "./bin/surepack.mjs"
   },
   "author": "George Gritsouk <george.gritsouk@gmail.com>",
   "license": "ISC",

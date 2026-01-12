@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 
-const argv = require("yargs").argv;
+import yargs from "yargs";
+import { hideBin } from "yargs/helpers";
 
-const surepack = require("../dist/index").default;
+import surepack from "../dist/index.js";
+import { ThingsFormatter } from "../dist/ThingsFormatter.js";
+import { MarkdownFormatter } from "../dist/MarkdownFormatter.js";
 
-const ThingsFormatter = require("../dist/ThingsFormatter").ThingsFormatter;
-const MarkdownFormatter =
-  require("../dist/MarkdownFormatter").MarkdownFormatter;
+const argv = yargs(hideBin(process.argv)).argv;
 
 const format = argv.format || "things";
 
