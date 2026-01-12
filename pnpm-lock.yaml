@@ -39,6 +39,9 @@ importers:
       '@types/pluralize':
         specifier: ^0.0.33
         version: 0.0.33
+      '@types/yargs':
+        specifier: ^17.0.35
+        version: 17.0.35
       jest:
         specifier: ^30.2.0
         version: 30.2.0(@types/node@24.10.7)
