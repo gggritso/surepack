@@ -37,8 +37,8 @@ const TEMPLATE = `# {{name}} Packing List
 `;
 
 export class MarkdownFormatter {
-	static format(packingList: PackingList): string {
-		const template = handlebars.compile(TEMPLATE);
-		return template(packingList);
-	}
+  static format(packingList: PackingList): string {
+    const template = handlebars.compile(TEMPLATE);
+    return template(packingList);
+  }
 }

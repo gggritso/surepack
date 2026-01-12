@@ -3,35 +3,35 @@ import { ThingsFormatter } from "./ThingsFormatter";
 import type { PackingList } from "./types/types";
 
 const createMockPackingList = (): PackingList => ({
-	name: "Test Trip Jan 15th - Jan 20th",
-	destination: "Test Destination",
-	departureDate: new Date("2025-01-15"),
-	returnDate: new Date("2025-01-20"),
-	preDeparture: ["close windows", "take out trash"],
-	dopp: ["toothbrush", "toothpaste"],
-	backpack: ["laptop", "charger"],
-	duffel: ["3 shirts", "2 pants"],
-	postArrival: ["unpack"],
+  name: "Test Trip Jan 15th - Jan 20th",
+  destination: "Test Destination",
+  departureDate: new Date("2025-01-15"),
+  returnDate: new Date("2025-01-20"),
+  preDeparture: ["close windows", "take out trash"],
+  dopp: ["toothbrush", "toothpaste"],
+  backpack: ["laptop", "charger"],
+  duffel: ["3 shirts", "2 pants"],
+  postArrival: ["unpack"],
 });
 
 const createEmptyPackingList = (): PackingList => ({
-	name: "Empty Trip",
-	destination: "Nowhere",
-	departureDate: new Date("2025-01-01"),
-	returnDate: new Date("2025-01-02"),
-	preDeparture: [],
-	dopp: [],
-	backpack: [],
-	duffel: [],
-	postArrival: [],
+  name: "Empty Trip",
+  destination: "Nowhere",
+  departureDate: new Date("2025-01-01"),
+  returnDate: new Date("2025-01-02"),
+  preDeparture: [],
+  dopp: [],
+  backpack: [],
+  duffel: [],
+  postArrival: [],
 });
 
 describe("MarkdownFormatter", () => {
-	it("should format a packing list as markdown", () => {
-		const packingList = createMockPackingList();
-		const result = MarkdownFormatter.format(packingList);
+  it("should format a packing list as markdown", () => {
+    const packingList = createMockPackingList();
+    const result = MarkdownFormatter.format(packingList);
 
-		expect(result).toMatchInlineSnapshot(`
+    expect(result).toMatchInlineSnapshot(`
 "# Test Trip Jan 15th - Jan 20th Packing List
 
 ## Pre-Departure
@@ -54,13 +54,13 @@ describe("MarkdownFormatter", () => {
 - [ ] unpack
 "
 `);
-	});
+  });
 
-	it("should handle empty arrays", () => {
-		const packingList = createEmptyPackingList();
-		const result = MarkdownFormatter.format(packingList);
+  it("should handle empty arrays", () => {
+    const packingList = createEmptyPackingList();
+    const result = MarkdownFormatter.format(packingList);
 
-		expect(result).toMatchInlineSnapshot(`
+    expect(result).toMatchInlineSnapshot(`
 "# Empty Trip Packing List
 
 ## Pre-Departure
@@ -74,20 +74,20 @@ describe("MarkdownFormatter", () => {
 ## Post-Arrival
 "
 `);
-	});
+  });
 });
 
 describe("ThingsFormatter", () => {
-	it("should generate a valid things:// URL with correct data", () => {
-		const packingList = createMockPackingList();
-		const result = ThingsFormatter.format(packingList);
+  it("should generate a valid things:// URL with correct data", () => {
+    const packingList = createMockPackingList();
+    const result = ThingsFormatter.format(packingList);
 
-		expect(result).toMatch(/^things:\/\/\/json\?data=/);
+    expect(result).toMatch(/^things:\/\/\/json\?data=/);
 
-		const dataMatch = result.match(/data=(.+)$/);
-		const decodedData = JSON.parse(decodeURIComponent(dataMatch![1]));
+    const dataMatch = result.match(/data=(.+)$/);
+    const decodedData = JSON.parse(decodeURIComponent(dataMatch![1]));
 
-		expect(decodedData).toMatchInlineSnapshot(`
+    expect(decodedData).toMatchInlineSnapshot(`
 [
   {
     "attributes": {
@@ -184,18 +184,18 @@ describe("ThingsFormatter", () => {
   },
 ]
 `);
-	});
+  });
 
-	it("should handle empty arrays", () => {
-		const packingList = createEmptyPackingList();
-		const result = ThingsFormatter.format(packingList);
+  it("should handle empty arrays", () => {
+    const packingList = createEmptyPackingList();
+    const result = ThingsFormatter.format(packingList);
 
-		expect(result).toMatch(/^things:\/\/\/json\?data=/);
+    expect(result).toMatch(/^things:\/\/\/json\?data=/);
 
-		const dataMatch = result.match(/data=(.+)$/);
-		const decodedData = JSON.parse(decodeURIComponent(dataMatch![1]));
+    const dataMatch = result.match(/data=(.+)$/);
+    const decodedData = JSON.parse(decodeURIComponent(dataMatch![1]));
 
-		expect(decodedData).toMatchInlineSnapshot(`
+    expect(decodedData).toMatchInlineSnapshot(`
 [
   {
     "attributes": {
@@ -232,5 +232,5 @@ describe("ThingsFormatter", () => {
   },
 ]
 `);
-	});
+  });
 });
