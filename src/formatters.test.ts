@@ -5,8 +5,8 @@ import type { PackingList } from "./types/types";
 const createMockPackingList = (): PackingList => ({
   name: "Test Trip Jan 15th - Jan 20th",
   destination: "Test Destination",
-  departureDate: new Date("2025-01-15"),
-  returnDate: new Date("2025-01-20"),
+  departureDate: new Date(2025, 0, 15), // Local time to avoid timezone issues
+  returnDate: new Date(2025, 0, 20),
   preDeparture: ["close windows", "take out trash"],
   dopp: ["toothbrush", "toothpaste"],
   backpack: ["laptop", "charger"],
@@ -17,8 +17,8 @@ const createMockPackingList = (): PackingList => ({
 const createEmptyPackingList = (): PackingList => ({
   name: "Empty Trip",
   destination: "Nowhere",
-  departureDate: new Date("2025-01-01"),
-  returnDate: new Date("2025-01-02"),
+  departureDate: new Date(2025, 0, 1), // Local time to avoid timezone issues
+  returnDate: new Date(2025, 0, 2),
   preDeparture: [],
   dopp: [],
   backpack: [],
@@ -95,14 +95,14 @@ describe("ThingsFormatter", () => {
         {
           "attributes": {
             "title": "close windows",
-            "when": "Jan 14th",
+            "when": "Jan 15th",
           },
           "type": "to-do",
         },
         {
           "attributes": {
             "title": "take out trash",
-            "when": "Jan 14th",
+            "when": "Jan 15th",
           },
           "type": "to-do",
         },
@@ -123,7 +123,7 @@ describe("ThingsFormatter", () => {
               },
             ],
             "title": "pack dopp",
-            "when": "Jan 13th",
+            "when": "Jan 14th",
           },
           "type": "to-do",
         },
@@ -144,7 +144,7 @@ describe("ThingsFormatter", () => {
               },
             ],
             "title": "pack backpack",
-            "when": "Jan 14th",
+            "when": "Jan 15th",
           },
           "type": "to-do",
         },
@@ -165,19 +165,19 @@ describe("ThingsFormatter", () => {
               },
             ],
             "title": "pack duffel",
-            "when": "Jan 13th",
+            "when": "Jan 14th",
           },
           "type": "to-do",
         },
         {
           "attributes": {
             "title": "unpack",
-            "when": "Jan 19th",
+            "when": "Jan 20th",
           },
           "type": "to-do",
         },
       ],
-      "notes": "Leaving Jan 14th, coming back Jan 19th",
+      "notes": "Leaving Jan 15th, coming back Jan 20th",
       "title": "Test Destination",
     },
     "type": "project",
@@ -204,14 +204,6 @@ describe("ThingsFormatter", () => {
           "attributes": {
             "checklist-items": [],
             "title": "pack dopp",
-            "when": "Dec 30th",
-          },
-          "type": "to-do",
-        },
-        {
-          "attributes": {
-            "checklist-items": [],
-            "title": "pack backpack",
             "when": "Dec 31st",
           },
           "type": "to-do",
@@ -219,13 +211,21 @@ describe("ThingsFormatter", () => {
         {
           "attributes": {
             "checklist-items": [],
+            "title": "pack backpack",
+            "when": "Jan 1st",
+          },
+          "type": "to-do",
+        },
+        {
+          "attributes": {
+            "checklist-items": [],
             "title": "pack duffel",
-            "when": "Dec 30th",
+            "when": "Dec 31st",
           },
           "type": "to-do",
         },
       ],
-      "notes": "Leaving Dec 31st, coming back Jan 1st",
+      "notes": "Leaving Jan 1st, coming back Jan 2nd",
       "title": "Nowhere",
     },
     "type": "project",
