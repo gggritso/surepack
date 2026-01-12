@@ -14,85 +14,223 @@ const createMockPackingList = (): PackingList => ({
 	postArrival: ["unpack"],
 });
 
+const createEmptyPackingList = (): PackingList => ({
+	name: "Empty Trip",
+	destination: "Nowhere",
+	departureDate: new Date("2025-01-01"),
+	returnDate: new Date("2025-01-02"),
+	preDeparture: [],
+	dopp: [],
+	backpack: [],
+	duffel: [],
+	postArrival: [],
+});
+
 describe("MarkdownFormatter", () => {
 	it("should format a packing list as markdown", () => {
 		const packingList = createMockPackingList();
 		const result = MarkdownFormatter.format(packingList);
 
-		expect(result).toContain("# Test Trip Jan 15th - Jan 20th Packing List");
-		expect(result).toContain("## Pre-Departure");
-		expect(result).toContain("- [ ] close windows");
-		expect(result).toContain("- [ ] take out trash");
-		expect(result).toContain("## Dopp");
-		expect(result).toContain("- [ ] toothbrush");
-		expect(result).toContain("## Backpack");
-		expect(result).toContain("- [ ] laptop");
-		expect(result).toContain("## Duffel");
-		expect(result).toContain("- [ ] 3 shirts");
-		expect(result).toContain("## Post-Arrival");
-		expect(result).toContain("- [ ] unpack");
+		expect(result).toMatchInlineSnapshot(`
+"# Test Trip Jan 15th - Jan 20th Packing List
+
+## Pre-Departure
+- [ ] close windows
+- [ ] take out trash
+
+## Dopp
+- [ ] toothbrush
+- [ ] toothpaste
+
+## Backpack
+- [ ] laptop
+- [ ] charger
+
+## Duffel
+- [ ] 3 shirts
+- [ ] 2 pants
+
+## Post-Arrival
+- [ ] unpack
+"
+`);
 	});
 
 	it("should handle empty arrays", () => {
-		const packingList: PackingList = {
-			name: "Empty Trip",
-			destination: "Nowhere",
-			departureDate: new Date(),
-			returnDate: new Date(),
-			preDeparture: [],
-			dopp: [],
-			backpack: [],
-			duffel: [],
-			postArrival: [],
-		};
+		const packingList = createEmptyPackingList();
 		const result = MarkdownFormatter.format(packingList);
 
-		expect(result).toContain("# Empty Trip Packing List");
-		expect(result).toContain("## Pre-Departure");
-		expect(result).toContain("## Dopp");
+		expect(result).toMatchInlineSnapshot(`
+"# Empty Trip Packing List
+
+## Pre-Departure
+
+## Dopp
+
+## Backpack
+
+## Duffel
+
+## Post-Arrival
+"
+`);
 	});
 });
 
 describe("ThingsFormatter", () => {
-	it("should generate a things:// URL", () => {
+	it("should generate a valid things:// URL with correct data", () => {
 		const packingList = createMockPackingList();
 		const result = ThingsFormatter.format(packingList);
 
 		expect(result).toMatch(/^things:\/\/\/json\?data=/);
-	});
-
-	it("should include JSON-encoded data in the URL", () => {
-		const packingList = createMockPackingList();
-		const result = ThingsFormatter.format(packingList);
-
-		// Extract the data parameter and decode it
-		const dataMatch = result.match(/data=(.+)$/);
-		expect(dataMatch).toBeTruthy();
-
-		const decodedData = JSON.parse(decodeURIComponent(dataMatch![1]));
-		expect(Array.isArray(decodedData)).toBe(true);
-	});
-
-	it("should create a project with nested to-dos", () => {
-		const packingList = createMockPackingList();
-		const result = ThingsFormatter.format(packingList);
 
 		const dataMatch = result.match(/data=(.+)$/);
 		const decodedData = JSON.parse(decodeURIComponent(dataMatch![1]));
 
-		// Should have 1 project
-		expect(decodedData.length).toBe(1);
-		expect(decodedData[0].type).toBe("project");
-		expect(decodedData[0].attributes.title).toBe("Test Destination");
+		expect(decodedData).toMatchInlineSnapshot(`
+[
+  {
+    "attributes": {
+      "items": [
+        {
+          "attributes": {
+            "title": "close windows",
+            "when": "Jan 14th",
+          },
+          "type": "to-do",
+        },
+        {
+          "attributes": {
+            "title": "take out trash",
+            "when": "Jan 14th",
+          },
+          "type": "to-do",
+        },
+        {
+          "attributes": {
+            "checklist-items": [
+              {
+                "attributes": {
+                  "title": "toothbrush",
+                },
+                "type": "checklist-item",
+              },
+              {
+                "attributes": {
+                  "title": "toothpaste",
+                },
+                "type": "checklist-item",
+              },
+            ],
+            "title": "pack dopp",
+            "when": "Jan 13th",
+          },
+          "type": "to-do",
+        },
+        {
+          "attributes": {
+            "checklist-items": [
+              {
+                "attributes": {
+                  "title": "laptop",
+                },
+                "type": "checklist-item",
+              },
+              {
+                "attributes": {
+                  "title": "charger",
+                },
+                "type": "checklist-item",
+              },
+            ],
+            "title": "pack backpack",
+            "when": "Jan 14th",
+          },
+          "type": "to-do",
+        },
+        {
+          "attributes": {
+            "checklist-items": [
+              {
+                "attributes": {
+                  "title": "3 shirts",
+                },
+                "type": "checklist-item",
+              },
+              {
+                "attributes": {
+                  "title": "2 pants",
+                },
+                "type": "checklist-item",
+              },
+            ],
+            "title": "pack duffel",
+            "when": "Jan 13th",
+          },
+          "type": "to-do",
+        },
+        {
+          "attributes": {
+            "title": "unpack",
+            "when": "Jan 19th",
+          },
+          "type": "to-do",
+        },
+      ],
+      "notes": "Leaving Jan 14th, coming back Jan 19th",
+      "title": "Test Destination",
+    },
+    "type": "project",
+  },
+]
+`);
+	});
 
-		// Project should have nested items
-		const items = decodedData[0].attributes.items;
-		expect(items.length).toBeGreaterThan(0);
+	it("should handle empty arrays", () => {
+		const packingList = createEmptyPackingList();
+		const result = ThingsFormatter.format(packingList);
 
-		// Check for to-do items with checklists (pack dopp, pack backpack, pack duffel)
-		const packItems = items.filter((item: { attributes: { title: string } }) =>
-			item.attributes.title.startsWith("pack "),
-		);
-		expect(packItems.length).toBe(3);
+		expect(result).toMatch(/^things:\/\/\/json\?data=/);
+
+		const dataMatch = result.match(/data=(.+)$/);
+		const decodedData = JSON.parse(decodeURIComponent(dataMatch![1]));
+
+		expect(decodedData).toMatchInlineSnapshot(`
+[
+  {
+    "attributes": {
+      "items": [
+        {
+          "attributes": {
+            "checklist-items": [],
+            "title": "pack dopp",
+            "when": "Dec 30th",
+          },
+          "type": "to-do",
+        },
+        {
+          "attributes": {
+            "checklist-items": [],
+            "title": "pack backpack",
+            "when": "Dec 31st",
+          },
+          "type": "to-do",
+        },
+        {
+          "attributes": {
+            "checklist-items": [],
+            "title": "pack duffel",
+            "when": "Dec 30th",
+          },
+          "type": "to-do",
+        },
+      ],
+      "notes": "Leaving Dec 31st, coming back Jan 1st",
+      "title": "Nowhere",
+    },
+    "type": "project",
+  },
+]
+`);
 	});
 });
