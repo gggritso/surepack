@@ -1,5 +1,5 @@
 {
   "permissions": {
-    "allow": ["Bash(pnpm:*)", "Bash(git:)", "Bash(grep:*)", "WebSearch"]
+    "allow": ["Bash(pnpm:*)", "Bash(git:*)", "Bash(grep:*)", "WebSearch"]
   }
 }
