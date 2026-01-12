@@ -1,11 +1,5 @@
 {
   "permissions": {
-    "allow": [
-      "Bash(npm run build:*)",
-      "Bash(git -C /Users/george/Code/surepack log --oneline -10)",
-      "Bash(grep:*)",
-      "WebSearch",
-      "Bash(yarn add:*)"
-    ]
+    "allow": ["Bash(pnpm:*)", "Bash(git:)", "Bash(grep:*)", "WebSearch"]
   }
 }
