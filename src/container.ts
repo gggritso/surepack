@@ -4,7 +4,7 @@ import type { ContainerItem } from "./types/types";
 export class Container {
 	private items: ContainerItem[];
 
-	constructor(_name: string, items: string[] = []) {
+	constructor(items: string[] = []) {
 		this.items = [];
 
 		if (items.length) {

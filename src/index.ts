@@ -29,7 +29,7 @@ const createPackingList = (answers: Answers): PackingList => {
 			(returnDate.getTime() - departureDate.getTime()) / (1000 * 60 * 60 * 24),
 		);
 
-	const preDeparture = new Container("Pre-departure");
+	const preDeparture = new Container();
 
 	preDeparture.addOneOfEach("close all windows");
 
@@ -46,11 +46,7 @@ const createPackingList = (answers: Answers): PackingList => {
 		);
 	}
 
-	const dopp = new Container("Dopp", [
-		"toothbrush",
-		"toothpaste",
-		"tongue brush",
-	]);
+	const dopp = new Container(["toothbrush", "toothpaste", "tongue brush"]);
 
 	dopp
 		.pack("floss threaders", nightsOfSleep + 1)
@@ -77,7 +73,7 @@ const createPackingList = (answers: Answers): PackingList => {
 
 	if (nightsOfSleep > 2) dopp.pack("condoms");
 
-	const duffel = new Container("Duffel");
+	const duffel = new Container();
 
 	let setsOfClothes: number;
 
@@ -130,7 +126,7 @@ const createPackingList = (answers: Answers): PackingList => {
 		);
 	}
 
-	const backpack = new Container("Backpack", [
+	const backpack = new Container([
 		"sunglasses in case",
 		"glasses in case",
 		"Kobo",
@@ -184,7 +180,7 @@ const createPackingList = (answers: Answers): PackingList => {
 		backpack.pack("transit pass");
 	}
 
-	const postArrival = new Container("Post-arrival");
+	const postArrival = new Container();
 
 	postArrival.add("unpack");
 
