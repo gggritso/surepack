@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 
 import { askQuestions } from "./questions";
+import { Checklist } from "./checklist";
 import { Container } from "./container";
 import type { Answers, PackingList } from "./types/types";
 
@@ -29,9 +30,9 @@ const createPackingList = (answers: Answers): PackingList => {
       (returnDate.getTime() - departureDate.getTime()) / (1000 * 60 * 60 * 24),
     );
 
-  const preDeparture = new Container();
+  const preDeparture = new Checklist();
 
-  preDeparture.addOneOfEach("close all windows");
+  preDeparture.add("close all windows");
 
   if (nightsOfSleep > 1) {
     preDeparture.add("take out compost");
@@ -39,7 +40,7 @@ const createPackingList = (answers: Answers): PackingList => {
   }
 
   if (leavingCanada || nightsOfSleep > 3) {
-    preDeparture.addOneOfEach(
+    preDeparture.add(
       "set thermostat to vacation",
       "set vacation on CondoControlCentral",
       "take out trashes",
@@ -177,7 +178,7 @@ const createPackingList = (answers: Answers): PackingList => {
     backpack.pack("transit pass");
   }
 
-  const postArrival = new Container();
+  const postArrival = new Checklist();
 
   postArrival.add("unpack");
 
@@ -186,11 +187,11 @@ const createPackingList = (answers: Answers): PackingList => {
     destination: destination,
     departureDate: departureDate,
     returnDate: returnDate,
-    preDeparture: preDeparture.asList(),
+    preDeparture: preDeparture.toArray(),
     dopp: dopp.asList(),
     backpack: backpack.asList(),
     duffel: duffel.asList(),
-    postArrival: postArrival.asList(),
+    postArrival: postArrival.toArray(),
   };
 };
 
