@@ -3,10 +3,10 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
-import surepack from "./index";
+import surepack, { createPackingList } from "./index";
 import { ThingsFormatter } from "./ThingsFormatter";
 import { MarkdownFormatter } from "./MarkdownFormatter";
-import type { PackingList } from "./types/types";
+import type { Answers, PackingList } from "./types/types";
 
 interface Formatter {
   format(data: PackingList): string;
@@ -29,7 +29,36 @@ if (!formatter) {
   process.exit(1);
 }
 
-surepack()
+function parseAnswers(json: string): Answers {
+  const parsed = JSON.parse(json);
+  return {
+    ...parsed,
+    departureDate: new Date(parsed.departureDate),
+    returnDate: new Date(parsed.returnDate),
+  };
+}
+
+function readStdin(): Promise<string> {
+  return new Promise((resolve, reject) => {
+    let data = "";
+    process.stdin.setEncoding("utf-8");
+    process.stdin.on("data", (chunk) => (data += chunk));
+    process.stdin.on("end", () => resolve(data));
+    process.stdin.on("error", reject);
+  });
+}
+
+const run = async (): Promise<PackingList> => {
+  // If stdin is not a TTY, read JSON from stdin
+  if (!process.stdin.isTTY) {
+    const json = await readStdin();
+    const answers = parseAnswers(json);
+    return createPackingList(answers);
+  }
+  return surepack();
+};
+
+run()
   .then((packingList) => {
     console.log(formatter.format(packingList));
   })

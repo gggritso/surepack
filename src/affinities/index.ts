@@ -1,18 +1,78 @@
-import { readFileSync } from "fs";
-import { join } from "path";
+export const doppItems = new Set([
+  "toothbrush",
+  "toothpaste",
+  "tongue brush",
+  "floss threaders",
+  "mouthwash",
+  "floss",
+  "cleanser",
+  "moisturizer",
+  "deodorant",
+  "cologne",
+  "pomade",
+  "daily contact",
+  "contact lens case",
+  "contact lens fluid",
+  "shampoo",
+  "shower gel",
+  "basic meds",
+  "condoms",
+  "polysporin",
+  "band-aids",
+]);
 
-function readAffinityFile(filename: string): Set<string> {
-  const content = readFileSync(join(__dirname, filename), "utf-8");
-  const items = content
-    .trim()
-    .split("\n")
-    .filter((line) => line.length > 0);
-  return new Set(items);
-}
+export const backpackItems = new Set([
+  "sunglasses in case",
+  "glasses in case",
+  "Kobo",
+  "phone charger",
+  "garbage bag",
+  "dopp kit",
+  "lip balm",
+  "bug spray",
+  "sunscreen",
+  "umbrella",
+  "laptop and charger",
+  "laptop extension cord",
+  "water bottle",
+  "passport",
+  "SIM tool",
+  "pen",
+  "local currency",
+  "transit pass",
+]);
 
-export const doppItems = readAffinityFile("dopp.txt");
-export const backpackItems = readAffinityFile("backpack.txt");
-export const mainItems = readAffinityFile("main.txt");
+export const mainItems = new Set([
+  "mask",
+  "sweater",
+  "shorts",
+  "pants",
+  "track pants",
+  "gym shorts",
+  "tank top",
+  "sports socks",
+  "sports underwear",
+  "cross-training shoes",
+  "second pair of shoes",
+  "laundry compression bag",
+  "suit",
+  "formal shoes",
+  "formal belt",
+  "tie",
+  "dress shirt",
+  "dress socks",
+  "knee socks",
+  "bug net",
+  "swim trunks",
+  "towel",
+  "flip flops",
+  "laundry pods",
+]);
 
 // Critical items for redundancy: kept in backpack in case main bag is lost
-export const criticalItems = readAffinityFile("critical.txt");
+export const criticalItems = new Set([
+  "t-shirt",
+  "underwear",
+  "socks",
+  "tank top",
+]);

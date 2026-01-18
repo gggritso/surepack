@@ -69,6 +69,8 @@ const createPackingList = (answers: Answers): PackingList => {
   };
 };
 
+export { createPackingList };
+
 export default async (): Promise<PackingList> => {
   const answers = await askQuestions();
   return createPackingList(answers);
