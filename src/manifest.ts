@@ -59,14 +59,7 @@ export class Manifest {
     // Dopp items (toiletries)
     manifest.addOneOfEach(["toothbrush", "toothpaste", "tongue brush"]);
     manifest.add("floss threaders", nightsOfSleep + 1);
-    manifest.addOneOfEach([
-      "mouthwash",
-      "floss",
-      "cleanser",
-      "moisturizer",
-      "deodorant",
-      "pomade",
-    ]);
+    manifest.addOneOfEach(["mouthwash", "floss", "cleanser", "moisturizer", "deodorant", "pomade"]);
 
     manifest.add("daily contact", nightsOfSleep + 1);
 
@@ -119,13 +112,7 @@ export class Manifest {
     manifest.addOne("water bottle");
 
     if (leavingCanada) {
-      manifest.addOneOfEach([
-        "passport",
-        "SIM tool",
-        "pen",
-        "local currency",
-        "transit pass",
-      ]);
+      manifest.addOneOfEach(["passport", "SIM tool", "pen", "local currency", "transit pass"]);
     }
 
     // Clothing (critical items get redundancy in backpack via allocator)
@@ -150,10 +137,7 @@ export class Manifest {
       manifest.add("sweater", Math.min(Math.ceil(nightsOfSleep / 3), 3));
     }
 
-    manifest.add(
-      isShortsWeather ? "shorts" : "pants",
-      Math.min(Math.floor(nightsOfSleep / 3), 3),
-    );
+    manifest.add(isShortsWeather ? "shorts" : "pants", Math.min(Math.floor(nightsOfSleep / 3), 3));
 
     manifest.addOne(lowTemperature < 15 ? "track pants" : "gym shorts");
 

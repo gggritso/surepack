@@ -72,8 +72,4 @@ export const mainItems = new Set([
 ]);
 
 // Critical items for redundancy: kept in backpack in case main bag is lost
-export const criticalItems = new Set([
-  "t-shirt",
-  "underwear",
-  "socks",
-]);
+export const criticalItems = new Set(["t-shirt", "underwear", "socks"]);

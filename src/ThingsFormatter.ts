@@ -28,9 +28,8 @@ export class ThingsFormatter {
     // Build container pack tasks
     const containerTasks = data.containers.map((container) => {
       // Backpack is packed on departure day, others the day before
-      const when = container.affinity === "backpack"
-        ? formattedDepartureDate
-        : formattedPackingDate;
+      const when =
+        container.affinity === "backpack" ? formattedDepartureDate : formattedPackingDate;
 
       return {
         type: "to-do",

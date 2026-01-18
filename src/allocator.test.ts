@@ -64,11 +64,7 @@ describe("allocator", () => {
       allocateItems(manifest, [dopp, backpack, main]);
 
       expect(backpack.asList()).toEqual(["t-shirt", "underwear", "socks"]);
-      expect(main.asList()).toEqual([
-        "4 t-shirts",
-        "4 underwears",
-        "4 socks",
-      ]);
+      expect(main.asList()).toEqual(["4 t-shirts", "4 underwears", "4 socks"]);
     });
 
     it("should handle critical items with quantity of 1", () => {

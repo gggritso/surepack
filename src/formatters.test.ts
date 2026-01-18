@@ -323,8 +323,7 @@ describe("ThingsFormatter", () => {
     // Check that it says "pack suitcase" instead of "pack duffel"
     const items = decodedData[0].attributes.items;
     const packSuitcaseTask = items.find(
-      (item: { attributes: { title: string } }) =>
-        item.attributes.title === "pack suitcase",
+      (item: { attributes: { title: string } }) => item.attributes.title === "pack suitcase",
     );
     expect(packSuitcaseTask).toBeDefined();
   });
@@ -385,9 +384,8 @@ describe("ThingsFormatter", () => {
     const decodedData = JSON.parse(decodeURIComponent(dataMatch![1]));
 
     const items = decodedData[0].attributes.items;
-    const containerTasks = items.filter(
-      (item: { attributes: { title: string } }) =>
-        item.attributes.title.startsWith("pack "),
+    const containerTasks = items.filter((item: { attributes: { title: string } }) =>
+      item.attributes.title.startsWith("pack "),
     );
 
     // Should only have dopp and backpack, no duffel/suitcase
