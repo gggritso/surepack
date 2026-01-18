@@ -1,18 +1,27 @@
+import type { Container } from "../container";
+import type { Checklist } from "../checklist";
+
 export interface PackingList {
   name: string;
   destination: string;
   departureDate: Date;
   returnDate: Date;
-  preDeparture: string[];
-  dopp: string[];
-  backpack: string[];
-  duffel: string[];
-  postArrival: string[];
+  preDeparture: Checklist;
+  containers: Container[];
+  postArrival: Checklist;
 }
 
 export interface ContainerItem {
   item: string;
   quantity: number;
+}
+
+export type ContainerAffinity = "backpack" | "dopp" | "main";
+
+export interface ManifestItem {
+  name: string;
+  quantity: number;
+  affinity: ContainerAffinity;
 }
 
 export interface Answers {

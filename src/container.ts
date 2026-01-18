@@ -1,43 +1,28 @@
 import pluralize from "pluralize";
-import type { ContainerItem } from "./types/types";
+import type { ContainerAffinity, ContainerItem } from "./types/types";
+
+export interface ContainerOptions {
+  affinity?: ContainerAffinity;
+  isMain?: boolean;
+}
 
 export class Container {
+  readonly name: string;
+  readonly affinity?: ContainerAffinity;
+  readonly isMain: boolean;
   private items: ContainerItem[];
 
-  constructor(items: string[] = []) {
+  constructor(name: string, options: ContainerOptions = {}) {
+    this.name = name;
+    this.affinity = options.affinity;
+    this.isMain = options.isMain ?? false;
     this.items = [];
-
-    if (items.length) {
-      items.forEach((item) => {
-        this.pack(item);
-      });
-    }
-  }
-
-  add(item: string, quantity?: number): void {
-    this.pack(item, quantity);
   }
 
   pack(item: string, quantity: number = 1): this {
     if (quantity > 0) {
-      this.items.push({
-        item,
-        quantity,
-      });
+      this.items.push({ item, quantity });
     }
-
-    return this;
-  }
-
-  addOneOfEach(...items: string[]): void {
-    this.packOneOfEach(...items);
-  }
-
-  packOneOfEach(...items: string[]): this {
-    items.forEach((item) => {
-      this.pack(item, 1);
-    });
-
     return this;
   }
 

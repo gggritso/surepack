@@ -9,6 +9,30 @@ export class ThingsFormatter {
     const packingDate = subDays(data.departureDate, 1);
     const formattedPackingDate = `${format(packingDate, "MMM do")}`;
 
+    // Build container pack tasks
+    const containerTasks = data.containers.map((container) => {
+      // Backpack is packed on departure day, others the day before
+      const when = container.affinity === "backpack"
+        ? formattedDepartureDate
+        : formattedPackingDate;
+
+      return {
+        type: "to-do",
+        attributes: {
+          title: `pack ${container.name.toLowerCase()}`,
+          when,
+          "checklist-items": container.asList().map(
+            (item): ChecklistItem => ({
+              type: "checklist-item",
+              attributes: {
+                title: item,
+              },
+            }),
+          ),
+        },
+      };
+    });
+
     const thingsData = [
       {
         type: "project",
@@ -16,7 +40,7 @@ export class ThingsFormatter {
           title: `${data.destination}`,
           notes: `Leaving ${formattedDepartureDate}, coming back ${formattedReturnDate}`,
           items: [
-            ...data.preDeparture.map(
+            ...data.preDeparture.toArray().map(
               (item): ThingsItem => ({
                 type: "to-do",
                 attributes: {
@@ -25,52 +49,8 @@ export class ThingsFormatter {
                 },
               }),
             ),
-            {
-              type: "to-do",
-              attributes: {
-                title: "pack dopp",
-                when: formattedPackingDate,
-                "checklist-items": data.dopp.map(
-                  (item): ChecklistItem => ({
-                    type: "checklist-item",
-                    attributes: {
-                      title: item,
-                    },
-                  }),
-                ),
-              },
-            },
-            {
-              type: "to-do",
-              attributes: {
-                title: "pack backpack",
-                when: formattedDepartureDate,
-                "checklist-items": data.backpack.map(
-                  (item): ChecklistItem => ({
-                    type: "checklist-item",
-                    attributes: {
-                      title: item,
-                    },
-                  }),
-                ),
-              },
-            },
-            {
-              type: "to-do",
-              attributes: {
-                title: "pack duffel",
-                when: formattedPackingDate,
-                "checklist-items": data.duffel.map(
-                  (item): ChecklistItem => ({
-                    type: "checklist-item",
-                    attributes: {
-                      title: item,
-                    },
-                  }),
-                ),
-              },
-            },
-            ...data.postArrival.map(
+            ...containerTasks,
+            ...data.postArrival.toArray().map(
               (item): ThingsItem => ({
                 type: "to-do",
                 attributes: {

@@ -1,35 +1,25 @@
 import { format } from "date-fns";
 
 import { askQuestions } from "./questions";
-import { Checklist } from "./checklist";
 import { Container } from "./container";
+import { Checklist } from "./checklist";
+import { Manifest } from "./manifest";
+import { allocateItems } from "./allocator";
 import type { Answers, PackingList } from "./types/types";
 
+function createMainContainer(nightsOfSleep: number): Container {
+  const name = nightsOfSleep <= 5 ? "Duffel" : "Suitcase";
+  return new Container(name, { isMain: true });
+}
+
 const createPackingList = (answers: Answers): PackingList => {
-  const {
-    destination,
-    departureDate,
-    returnDate,
-    accessToBodyOfWater,
-    willBeWorking,
-    willNeedASuit,
-    willHaveLaundry,
-    workouts,
-    rainDays,
-    areThereBugs,
-    leavingCanada,
-    lowTemperature,
-    highTemperature,
-    extras,
-  } = answers;
+  const { destination, departureDate, returnDate, leavingCanada } = answers;
 
-  const laundryThreshold = 5;
+  const nightsOfSleep = Math.floor(
+    (returnDate.getTime() - departureDate.getTime()) / (1000 * 60 * 60 * 24),
+  );
 
-  const isShortsWeather = lowTemperature > 20,
-    nightsOfSleep = Math.floor(
-      (returnDate.getTime() - departureDate.getTime()) / (1000 * 60 * 60 * 24),
-    );
-
+  // Phase 1: Pre-departure checklist
   const preDeparture = new Checklist();
 
   preDeparture.add("close all windows");
@@ -47,139 +37,25 @@ const createPackingList = (answers: Answers): PackingList => {
     );
   }
 
-  const dopp = new Container(["toothbrush", "toothpaste", "tongue brush"]);
+  // Phase 2: Build manifest
+  const manifest = Manifest.create(answers);
 
-  dopp
-    .pack("floss threaders", nightsOfSleep + 1)
-    .packOneOfEach(
-      "mouthwash",
-      "floss",
-      "cleanser",
-      "moisturizer",
-      "deodorant",
-      "cologne",
-      "pomade",
-    );
+  // Phase 3: Create containers
+  // For single-night trips, everything goes in backpack (no main container)
+  const dopp = new Container("Dopp", { affinity: "dopp" });
+  const backpack = new Container("Backpack", { affinity: "backpack", isMain: nightsOfSleep <= 1 });
 
-  if (nightsOfSleep < 3) {
-    dopp.pack("daily contact", nightsOfSleep + 1);
-  } else {
-    dopp.pack("contact lens case");
-    dopp.pack("contact lens fluid");
-  }
-
-  if (nightsOfSleep > 3) dopp.pack("shampoo");
-  dopp.pack("shower gel");
-  dopp.pack("basic meds");
-
-  if (nightsOfSleep > 2) dopp.pack("condoms");
-
-  const duffel = new Container();
-
-  let setsOfClothes: number;
-
-  if (willHaveLaundry) {
-    setsOfClothes = Math.min(nightsOfSleep + 1, laundryThreshold);
-  } else {
-    setsOfClothes = nightsOfSleep + 1;
-  }
-
-  duffel.pack("mask", setsOfClothes);
-  duffel.pack("underwear", setsOfClothes);
-  duffel.pack("socks", setsOfClothes);
-  duffel.pack("t-shirt", setsOfClothes);
-
-  if (lowTemperature < 15) {
-    duffel.pack("sweater", Math.min(Math.ceil(nightsOfSleep / 3), 3));
-  }
-
-  duffel.pack(isShortsWeather ? "shorts" : "pants", Math.min(Math.floor(nightsOfSleep / 3), 3));
-  duffel.pack("tank top");
-  duffel.pack(lowTemperature < 15 ? "track pants" : "gym shorts");
-
-  if (workouts > 0) {
-    duffel.pack("tank top", workouts);
-    duffel.pack("shorts", workouts);
-    duffel.pack("sports socks", workouts);
-    duffel.pack("sports underwear", workouts);
-    duffel.pack("cross-training shoes");
-  }
-
-  if ((nightsOfSleep > 4 && highTemperature < 20) || rainDays > 1) {
-    duffel.pack("second pair of shoes");
-  }
+  const containers: Container[] = [dopp, backpack];
 
   if (nightsOfSleep > 1) {
-    duffel.pack("laundry compression bag");
+    containers.push(createMainContainer(nightsOfSleep));
   }
 
-  if (willNeedASuit) {
-    duffel.packOneOfEach(
-      "suit",
-      "formal shoes",
-      "formal belt",
-      "tie",
-      "dress shirt",
-      "dress socks",
-    );
-  }
+  // Phase 4: Allocate items to containers
+  allocateItems(manifest.toArray(), containers);
 
-  const backpack = new Container([
-    "sunglasses in case",
-    "glasses in case",
-    "Kobo",
-    "phone charger",
-    "garbage bag",
-    "dopp kit",
-    "lip balm",
-  ]);
-
-  if (areThereBugs) {
-    backpack.pack("bug spray");
-    duffel.pack("knee socks");
-    duffel.pack("bug net");
-  }
-
-  extras.forEach((extra: string) => backpack.pack(extra));
-
-  if (highTemperature > 20) backpack.pack("sunscreen");
-  if (rainDays > 1) backpack.pack("umbrella");
-
-  if (accessToBodyOfWater) {
-    duffel.pack("swim trunks");
-    duffel.pack("towel");
-    duffel.pack("flip flops");
-  }
-
-  if (nightsOfSleep > laundryThreshold && willHaveLaundry) {
-    duffel.pack("laundry pods", Math.max(Math.floor(nightsOfSleep / 5), 1));
-  }
-
-  if (willBeWorking || nightsOfSleep > 3) {
-    backpack.pack("laptop and charger");
-  }
-
-  if (willBeWorking) {
-    backpack.pack("laptop extension cord");
-  }
-
-  if (workouts > 0) {
-    dopp.pack("polysporin");
-    dopp.pack("band-aids");
-  }
-
-  backpack.pack("water bottle");
-
-  if (leavingCanada) {
-    backpack.pack("passport");
-    backpack.pack("SIM tool");
-    backpack.pack("pen");
-    backpack.pack("local currency");
-    backpack.pack("transit pass");
-  }
-
+  // Post-arrival checklist
   const postArrival = new Checklist();
-
   postArrival.add("unpack");
 
   return {
@@ -187,11 +63,9 @@ const createPackingList = (answers: Answers): PackingList => {
     destination: destination,
     departureDate: departureDate,
     returnDate: returnDate,
-    preDeparture: preDeparture.toArray(),
-    dopp: dopp.asList(),
-    backpack: backpack.asList(),
-    duffel: duffel.asList(),
-    postArrival: postArrival.toArray(),
+    preDeparture: preDeparture,
+    containers: containers,
+    postArrival: postArrival,
   };
 };
 

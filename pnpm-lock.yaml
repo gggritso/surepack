@@ -17,9 +17,6 @@ importers:
       date-fns:
         specifier: ^4
         version: 4.1.0
-      handlebars:
-        specifier: ^4.7
-        version: 4.7.8
       pluralize:
         specifier: ^8
         version: 8.0.0
