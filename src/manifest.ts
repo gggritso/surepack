@@ -46,6 +46,7 @@ export class Manifest {
       extras,
       departureDate,
       returnDate,
+      flights,
     } = answers;
 
     const isShortsWeather = lowTemperature > SHORTS_WEATHER_TEMPERATURE;
@@ -64,19 +65,15 @@ export class Manifest {
       "cleanser",
       "moisturizer",
       "deodorant",
-      "cologne",
       "pomade",
     ]);
 
-    if (nightsOfSleep < 3) {
-      manifest.add("daily contact", nightsOfSleep + 1);
-    } else {
-      manifest.addOneOfEach(["contact lens case", "contact lens fluid"]);
-    }
+    manifest.add("daily contact", nightsOfSleep + 1);
 
     if (nightsOfSleep > 3) manifest.addOne("shampoo");
     manifest.addOne("shower gel");
-    manifest.addOne("basic meds");
+
+    if (nightsOfSleep > 7) manifest.addOne("essix");
 
     if (nightsOfSleep > 2) manifest.addOne("condoms");
 
@@ -93,10 +90,17 @@ export class Manifest {
       "garbage bag",
       "dopp kit",
       "lip balm",
+      "Baggu",
     ]);
 
     if (areThereBugs) {
       manifest.addOne("bug spray");
+    }
+
+    if (nightsOfSleep > 10) manifest.addOne("Whoop charger");
+
+    if (flights > 1) {
+      manifest.addOneOfEach(["wired earbuds", "earplugs"]);
     }
 
     extras.forEach((extra) => manifest.addOne(extra));
@@ -138,7 +142,9 @@ export class Manifest {
     manifest.addOne("tank top");
 
     // Main container items
-    manifest.add("mask", setsOfClothes);
+    if (flights > 0) {
+      manifest.add("compression socks", flights);
+    }
 
     if (lowTemperature < 15) {
       manifest.add("sweater", Math.min(Math.ceil(nightsOfSleep / 3), 3));
@@ -183,7 +189,7 @@ export class Manifest {
     }
 
     if (accessToBodyOfWater) {
-      manifest.addOneOfEach(["swim trunks", "towel", "flip flops"]);
+      manifest.addOneOfEach(["swim trunks", "towel", "Birks"]);
     }
 
     if (nightsOfSleep > LAUNDRY_THRESHOLD && willHaveLaundry) {

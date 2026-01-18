@@ -61,6 +61,11 @@ export const askQuestions = async (): Promise<Answers> => {
     default: 0,
   });
 
+  const flights = await number({
+    message: "How many flights?",
+    default: 0,
+  });
+
   const areThereBugs = await confirm({
     message: "Will there be bugs?",
     default: false,
@@ -69,7 +74,6 @@ export const askQuestions = async (): Promise<Answers> => {
   const extras = await checkbox({
     message: "Any extras?",
     choices: [
-      { value: "water bottle", name: "water bottle" },
       { value: "drinks", name: "drinks" },
       { value: "bluetooth speaker", name: "bluetooth speaker" },
       { value: "cards", name: "cards" },
@@ -77,6 +81,10 @@ export const askQuestions = async (): Promise<Answers> => {
       { value: "Instax", name: "Instax" },
       { value: "head lamp", name: "head lamp" },
       { value: "slippers", name: "slippers" },
+      { value: "presents", name: "presents" },
+      { value: "battery charger", name: "battery charger" },
+      { value: "travel adapter", name: "travel adapter" },
+      { value: "dock bag", name: "dock bag" },
     ],
   });
 
@@ -93,6 +101,7 @@ export const askQuestions = async (): Promise<Answers> => {
     lowTemperature: lowTemperature!,
     highTemperature: highTemperature!,
     rainDays: rainDays ?? 0,
+    flights: flights ?? 0,
     areThereBugs,
     extras,
   };

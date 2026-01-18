@@ -20,7 +20,7 @@
   "bin": {
     "surepack": "./dist/cli.js"
   },
-  "author": "George Gritsouk <george.gritsouk@gmail.com>",
+  "author": "George Gritsouk <989898+gggritso@users.noreply.github.com>",
   "license": "ISC",
   "dependencies": {
     "@inquirer/core": "^11.1.1",

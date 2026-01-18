@@ -34,6 +34,7 @@ export interface Answers {
   willHaveLaundry: boolean;
   workouts: number;
   rainDays: number;
+  flights: number;
   areThereBugs: boolean;
   leavingCanada: boolean;
   lowTemperature: number;

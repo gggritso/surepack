@@ -23,6 +23,8 @@ const createPackingList = (answers: Answers): PackingList => {
   const preDeparture = new Checklist();
 
   preDeparture.add("close all windows");
+  preDeparture.add("download some media");
+  preDeparture.add("turn off alarm");
 
   if (nightsOfSleep > 1) {
     preDeparture.add("take out compost");
@@ -32,7 +34,7 @@ const createPackingList = (answers: Answers): PackingList => {
   if (leavingCanada || nightsOfSleep > 3) {
     preDeparture.add(
       "set thermostat to vacation",
-      "set vacation on CondoControlCentral",
+      "set vacation on CondoControl",
       "take out trashes",
     );
   }
@@ -42,10 +44,11 @@ const createPackingList = (answers: Answers): PackingList => {
 
   // Phase 3: Create containers
   // For single-night trips, everything goes in backpack (no main container)
+  const onMe = new Container("On Me", {});
   const dopp = new Container("Dopp", { affinity: "dopp" });
   const backpack = new Container("Backpack", { affinity: "backpack", isMain: nightsOfSleep <= 1 });
 
-  const containers: Container[] = [dopp, backpack];
+  const containers: Container[] = [onMe, dopp, backpack];
 
   if (nightsOfSleep > 1) {
     containers.push(createMainContainer(nightsOfSleep));
@@ -57,6 +60,8 @@ const createPackingList = (answers: Answers): PackingList => {
   // Post-arrival checklist
   const postArrival = new Checklist();
   postArrival.add("unpack");
+  postArrival.add("turn on alarm");
+  postArrival.add("settle expenses");
 
   return {
     name: `${destination} ${format(departureDate, "MMM do")} - ${format(returnDate, "MMM do")}`,

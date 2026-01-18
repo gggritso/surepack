@@ -8,17 +8,14 @@ export const doppItems = new Set([
   "cleanser",
   "moisturizer",
   "deodorant",
-  "cologne",
   "pomade",
   "daily contact",
-  "contact lens case",
-  "contact lens fluid",
   "shampoo",
   "shower gel",
-  "basic meds",
   "condoms",
   "polysporin",
   "band-aids",
+  "essix",
 ]);
 
 export const backpackItems = new Set([
@@ -40,10 +37,13 @@ export const backpackItems = new Set([
   "pen",
   "local currency",
   "transit pass",
+  "Baggu",
+  "wired earbuds",
+  "earplugs",
+  "Whoop charger",
 ]);
 
 export const mainItems = new Set([
-  "mask",
   "sweater",
   "shorts",
   "pants",
@@ -65,8 +65,10 @@ export const mainItems = new Set([
   "bug net",
   "swim trunks",
   "towel",
-  "flip flops",
   "laundry pods",
+  "slippers",
+  "Birks",
+  "compression socks",
 ]);
 
 // Critical items for redundancy: kept in backpack in case main bag is lost
@@ -74,5 +76,4 @@ export const criticalItems = new Set([
   "t-shirt",
   "underwear",
   "socks",
-  "tank top",
 ]);

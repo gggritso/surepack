@@ -74,13 +74,13 @@ describe("allocator", () => {
     it("should handle critical items with quantity of 1", () => {
       const manifest: ManifestItem[] = [
         { name: "t-shirt", quantity: 1, affinity: "main" },
-        { name: "tank top", quantity: 1, affinity: "main" },
+        { name: "underwear", quantity: 1, affinity: "main" },
       ];
 
       const { dopp, backpack, main } = createContainers();
       allocateItems(manifest, [dopp, backpack, main]);
 
-      expect(backpack.asList()).toEqual(["t-shirt", "tank top"]);
+      expect(backpack.asList()).toEqual(["t-shirt", "underwear"]);
       expect(main.asList()).toEqual([]);
     });
 
