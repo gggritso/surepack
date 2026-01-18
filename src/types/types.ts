@@ -41,19 +41,3 @@ export interface Answers {
   highTemperature: number;
   extras: string[];
 }
-
-export interface ThingsItem {
-  type: string;
-  attributes: {
-    title: string;
-    when?: string;
-    "checklist-items"?: ChecklistItem[];
-  };
-}
-
-export interface ChecklistItem {
-  type: string;
-  attributes: {
-    title: string;
-  };
-}

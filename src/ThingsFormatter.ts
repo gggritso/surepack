@@ -1,6 +1,22 @@
 import querystring from "node:querystring";
 import { format, subDays } from "date-fns";
-import type { ChecklistItem, PackingList, ThingsItem } from "./types/types";
+import type { PackingList } from "./types/types";
+
+interface ChecklistItem {
+  type: string;
+  attributes: {
+    title: string;
+  };
+}
+
+interface ThingsItem {
+  type: string;
+  attributes: {
+    title: string;
+    when?: string;
+    "checklist-items"?: ChecklistItem[];
+  };
+}
 
 export class ThingsFormatter {
   static format(data: PackingList): string {
