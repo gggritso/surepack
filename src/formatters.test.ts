@@ -11,7 +11,7 @@ const createMockPackingList = (): PackingList => {
   const dopp = new Container("Dopp", { affinity: "dopp" });
   dopp.pack("toothbrush").pack("toothpaste");
 
-  const backpack = new Container("Backpack", { affinity: "backpack" });
+  const backpack = new Container("Backpack", { affinity: "backpack", packDayOffset: 0 });
   backpack.pack("laptop").pack("charger");
 
   const main = new Container("Duffel", { isMain: true });
@@ -40,7 +40,7 @@ const createEmptyPackingList = (): PackingList => {
     preDeparture: new Checklist(),
     containers: [
       new Container("Dopp", { affinity: "dopp" }),
-      new Container("Backpack", { affinity: "backpack" }),
+      new Container("Backpack", { affinity: "backpack", packDayOffset: 0 }),
       new Container("Duffel", { isMain: true }),
     ],
     postArrival: new Checklist(),
@@ -54,7 +54,7 @@ const createLongTripPackingList = (): PackingList => {
   const dopp = new Container("Dopp", { affinity: "dopp" });
   dopp.pack("toothbrush");
 
-  const backpack = new Container("Backpack", { affinity: "backpack" });
+  const backpack = new Container("Backpack", { affinity: "backpack", packDayOffset: 0 });
   backpack.pack("laptop");
 
   const main = new Container("Suitcase", { isMain: true });
@@ -81,7 +81,11 @@ const createSingleNightPackingList = (): PackingList => {
   const dopp = new Container("Dopp", { affinity: "dopp" });
   dopp.pack("toothbrush");
 
-  const backpack = new Container("Backpack", { affinity: "backpack", isMain: true });
+  const backpack = new Container("Backpack", {
+    affinity: "backpack",
+    isMain: true,
+    packDayOffset: 0,
+  });
   backpack.pack("laptop").pack("t-shirt").pack("underwear");
 
   const postArrival = new Checklist();

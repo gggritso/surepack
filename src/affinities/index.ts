@@ -1,7 +1,6 @@
 export const doppItems = new Set([
   "toothbrush",
   "toothpaste",
-  "tongue brush",
   "floss threaders",
   "mouthwash",
   "floss",
@@ -24,8 +23,6 @@ export const backpackItems = new Set([
   "Kobo",
   "phone charger",
   "garbage bag",
-  "dopp kit",
-  "lip balm",
   "bug spray",
   "sunscreen",
   "umbrella",
@@ -44,6 +41,7 @@ export const backpackItems = new Set([
 ]);
 
 export const mainItems = new Set([
+  "dopp kit",
   "sweater",
   "shorts",
   "pants",

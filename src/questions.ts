@@ -71,6 +71,11 @@ export const askQuestions = async (): Promise<Answers> => {
     default: false,
   });
 
+  const bringingFood = await confirm({
+    message: "Are you bringing food?",
+    default: false,
+  });
+
   const extras = await checkbox({
     message: "Any extras?",
     choices: [
@@ -103,6 +108,7 @@ export const askQuestions = async (): Promise<Answers> => {
     rainDays: rainDays ?? 0,
     flights: flights ?? 0,
     areThereBugs,
+    bringingFood,
     extras,
   };
 };

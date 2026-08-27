@@ -1,5 +1,5 @@
 import querystring from "node:querystring";
-import { format, subDays } from "date-fns";
+import { addDays, format } from "date-fns";
 import type { PackingList } from "./types/types";
 
 interface ChecklistItem {
@@ -22,14 +22,10 @@ export class ThingsFormatter {
   static format(data: PackingList): string {
     const formattedDepartureDate = `${format(data.departureDate, "MMM do")}`;
     const formattedReturnDate = `${format(data.returnDate, "MMM do")}`;
-    const packingDate = subDays(data.departureDate, 1);
-    const formattedPackingDate = `${format(packingDate, "MMM do")}`;
 
     // Build container pack tasks
     const containerTasks = data.containers.map((container) => {
-      // Backpack is packed on departure day, others the day before
-      const when =
-        container.affinity === "backpack" ? formattedDepartureDate : formattedPackingDate;
+      const when = `${format(addDays(data.departureDate, container.packDayOffset), "MMM do")}`;
 
       return {
         type: "to-do",

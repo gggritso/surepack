@@ -11,15 +11,15 @@ function getAffinity(name: string): ContainerAffinity {
 export class Manifest {
   private items: ManifestItem[] = [];
 
-  add(name: string, quantity: number): this {
+  add(name: string, quantity: number, affinity: ContainerAffinity = getAffinity(name)): this {
     if (quantity > 0) {
-      this.items.push({ name, quantity, affinity: getAffinity(name) });
+      this.items.push({ name, quantity, affinity });
     }
     return this;
   }
 
-  addOne(name: string): this {
-    return this.add(name, 1);
+  addOne(name: string, affinity?: ContainerAffinity): this {
+    return this.add(name, 1, affinity);
   }
 
   addOneOfEach(names: string[]): this {
@@ -57,7 +57,7 @@ export class Manifest {
     const manifest = new Manifest();
 
     // Dopp items (toiletries)
-    manifest.addOneOfEach(["toothbrush", "toothpaste", "tongue brush"]);
+    manifest.addOneOfEach(["toothbrush", "toothpaste"]);
     manifest.add("floss threaders", nightsOfSleep + 1);
     manifest.addOneOfEach(["mouthwash", "floss", "cleanser", "moisturizer", "deodorant", "pomade"]);
 
@@ -81,10 +81,11 @@ export class Manifest {
       "Kobo",
       "phone charger",
       "garbage bag",
-      "dopp kit",
-      "lip balm",
       "Baggu",
     ]);
+
+    // The dopp kit rides in the main bag, except when flying, when it stays carry-on
+    manifest.addOne("dopp kit", flights > 0 ? "backpack" : "main");
 
     if (areThereBugs) {
       manifest.addOne("bug spray");

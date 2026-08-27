@@ -67,6 +67,20 @@ describe("allocator", () => {
       expect(main.asList()).toEqual(["4 t-shirts", "4 underwears", "4 socks"]);
     });
 
+    it("should skip redundancy when it is disabled", () => {
+      const manifest: ManifestItem[] = [
+        { name: "t-shirt", quantity: 5, affinity: "main" },
+        { name: "underwear", quantity: 5, affinity: "main" },
+        { name: "socks", quantity: 5, affinity: "main" },
+      ];
+
+      const { dopp, backpack, main } = createContainers();
+      allocateItems(manifest, [dopp, backpack, main], { redundancy: false });
+
+      expect(backpack.asList()).toEqual([]);
+      expect(main.asList()).toEqual(["5 t-shirts", "5 underwears", "5 socks"]);
+    });
+
     it("should handle critical items with quantity of 1", () => {
       const manifest: ManifestItem[] = [
         { name: "t-shirt", quantity: 1, affinity: "main" },

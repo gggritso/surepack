@@ -2,7 +2,13 @@ import { criticalItems } from "./affinities";
 import type { Container } from "./container";
 import type { ManifestItem } from "./types/types";
 
-export function allocateItems(manifest: ManifestItem[], containers: Container[]): void {
+export function allocateItems(
+  manifest: ManifestItem[],
+  containers: Container[],
+  options: { redundancy?: boolean } = {},
+): void {
+  const { redundancy = true } = options;
+
   const mainContainer = containers.find((c) => c.isMain);
   const backpack = containers.find((c) => c.affinity === "backpack");
 
@@ -18,7 +24,11 @@ export function allocateItems(manifest: ManifestItem[], containers: Container[])
     // Redundancy for baggage loss: if packing critical items into a separate
     // main container, put one in backpack in case the bag is lost
     const needsRedundancy =
-      mainContainer && backpack && mainContainer !== backpack && criticalItems.has(item.name);
+      redundancy &&
+      mainContainer &&
+      backpack &&
+      mainContainer !== backpack &&
+      criticalItems.has(item.name);
 
     if (needsRedundancy) {
       backpack.pack(item.name, 1);

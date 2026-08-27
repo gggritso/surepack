@@ -21,6 +21,16 @@ describe("Container", () => {
       expect(container.name).toBe("Suitcase");
       expect(container.isMain).toBe(true);
     });
+
+    it("should pack the day before departure by default", () => {
+      const container = new Container("Duffel");
+      expect(container.packDayOffset).toBe(-1);
+    });
+
+    it("should accept a pack day offset", () => {
+      const container = new Container("On Me", { packDayOffset: 0 });
+      expect(container.packDayOffset).toBe(0);
+    });
   });
 
   describe("pack", () => {

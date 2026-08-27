@@ -13,7 +13,7 @@ function createMainContainer(nightsOfSleep: number): Container {
 }
 
 const createPackingList = (answers: Answers): PackingList => {
-  const { destination, departureDate, returnDate, leavingCanada } = answers;
+  const { destination, departureDate, returnDate, leavingCanada, flights, bringingFood } = answers;
 
   const nightsOfSleep = Math.floor(
     (returnDate.getTime() - departureDate.getTime()) / (1000 * 60 * 60 * 24),
@@ -24,7 +24,6 @@ const createPackingList = (answers: Answers): PackingList => {
 
   preDeparture.add("close all windows");
   preDeparture.add("download some media");
-  preDeparture.add("turn off alarm");
 
   if (nightsOfSleep > 1) {
     preDeparture.add("take out compost");
@@ -43,10 +42,16 @@ const createPackingList = (answers: Answers): PackingList => {
   const manifest = Manifest.create(answers);
 
   // Phase 3: Create containers
-  // For single-night trips, everything goes in backpack (no main container)
-  const onMe = new Container("On Me", {});
+  // For single-night trips, everything goes in backpack (no main container).
+  // "On Me", the backpack and the food bag are gathered the morning of departure,
+  // everything else the night before
+  const onMe = new Container("On Me", { packDayOffset: 0 });
   const dopp = new Container("Dopp", { affinity: "dopp" });
-  const backpack = new Container("Backpack", { affinity: "backpack", isMain: nightsOfSleep <= 1 });
+  const backpack = new Container("Backpack", {
+    affinity: "backpack",
+    isMain: nightsOfSleep <= 1,
+    packDayOffset: 0,
+  });
 
   const containers: Container[] = [onMe, dopp, backpack];
 
@@ -54,13 +59,18 @@ const createPackingList = (answers: Answers): PackingList => {
     containers.push(createMainContainer(nightsOfSleep));
   }
 
+  if (bringingFood) {
+    containers.push(new Container("Food Bag", { packDayOffset: 0 }));
+  }
+
   // Phase 4: Allocate items to containers
-  allocateItems(manifest.toArray(), containers);
+  // Splitting a change of clothes into the backpack only guards against a checked
+  // bag going missing, so it is only worth doing when flying
+  allocateItems(manifest.toArray(), containers, { redundancy: flights > 0 });
 
   // Post-arrival checklist
   const postArrival = new Checklist();
   postArrival.add("unpack");
-  postArrival.add("turn on alarm");
   postArrival.add("settle expenses");
 
   return {
