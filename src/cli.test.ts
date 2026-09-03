@@ -74,7 +74,7 @@ describe("CLI", () => {
   });
 
   it("should exit with error for unknown format", () => {
-    expect(() => runCli("invalid", testAnswers)).toThrow();
+    expect(() => runCli("invalid", testAnswers)).toThrow("Command failed");
   });
 
   it("should work when run from a different directory", () => {

@@ -32,14 +32,12 @@ export class ThingsFormatter {
         attributes: {
           title: `pack ${container.name.toLowerCase()}`,
           when,
-          "checklist-items": container.asList().map(
-            (item): ChecklistItem => ({
-              type: "checklist-item",
-              attributes: {
-                title: item,
-              },
-            }),
-          ),
+          "checklist-items": container.asList().map((item): ChecklistItem => ({
+            type: "checklist-item",
+            attributes: {
+              title: item,
+            },
+          })),
         },
       };
     });
@@ -51,25 +49,21 @@ export class ThingsFormatter {
           title: `${data.destination}`,
           notes: `Leaving ${formattedDepartureDate}, coming back ${formattedReturnDate}`,
           items: [
-            ...data.preDeparture.toArray().map(
-              (item): ThingsItem => ({
-                type: "to-do",
-                attributes: {
-                  title: item,
-                  when: formattedDepartureDate,
-                },
-              }),
-            ),
+            ...data.preDeparture.toArray().map((item): ThingsItem => ({
+              type: "to-do",
+              attributes: {
+                title: item,
+                when: formattedDepartureDate,
+              },
+            })),
             ...containerTasks,
-            ...data.postArrival.toArray().map(
-              (item): ThingsItem => ({
-                type: "to-do",
-                attributes: {
-                  title: item,
-                  when: formattedReturnDate,
-                },
-              }),
-            ),
+            ...data.postArrival.toArray().map((item): ThingsItem => ({
+              type: "to-do",
+              attributes: {
+                title: item,
+                when: formattedReturnDate,
+              },
+            })),
           ],
         },
       },

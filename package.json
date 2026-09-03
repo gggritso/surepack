@@ -2,45 +2,74 @@
   "name": "surepack",
   "version": "0.3.0",
   "description": "Packing list generator",
-  "main": "dist/index.js",
-  "files": [
-    "dist"
+  "keywords": [
+    "cli",
+    "packing",
+    "travel"
   ],
-  "scripts": {
-    "build": "tsc",
-    "watch": "tsc --watch",
-    "lint": "oxlint src",
-    "lint:fix": "oxlint --fix src",
-    "format:check": "oxfmt --check src",
-    "format": "oxfmt src",
-    "typecheck": "tsc --noEmit",
-    "test": "vitest run",
-    "test:watch": "vitest"
+  "homepage": "https://github.com/gggritso/surepack#readme",
+  "bugs": {
+    "url": "https://github.com/gggritso/surepack/issues"
+  },
+  "license": "ISC",
+  "author": "George Gritsouk <989898+gggritso@users.noreply.github.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gggritso/surepack.git"
   },
   "bin": {
     "surepack": "./dist/cli.js"
   },
-  "author": "George Gritsouk <989898+gggritso@users.noreply.github.com>",
-  "license": "ISC",
+  "files": [
+    "dist"
+  ],
+  "type": "commonjs",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "pnpm clean && tsc --project tsconfig.build.json",
+    "watch": "tsc --project tsconfig.build.json --watch",
+    "lint": "oxlint --deny-warnings --import-plugin --node-plugin --vitest-plugin .",
+    "lint:fix": "pnpm lint --fix",
+    "format:check": "oxfmt --check .",
+    "format": "oxfmt .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepack": "pnpm build"
+  },
   "dependencies": {
-    "@inquirer/core": "^11.1.1",
-    "@inquirer/prompts": "^8.2.0",
-    "date-fns": "^4",
-    "pluralize": "^8",
-    "yargs": "^18"
+    "@inquirer/core": "^11.2.1",
+    "@inquirer/prompts": "^8.7.1",
+    "date-fns": "^4.4.0",
+    "pluralize": "^8.0.0",
+    "yargs": "^18.1.0"
   },
   "devDependencies": {
-    "@types/node": "^24.0.0",
+    "@types/node": "^24.13.3",
     "@types/pluralize": "^0.0.33",
     "@types/yargs": "^17.0.35",
-    "oxfmt": "^0.23.0",
-    "oxlint": "^1.38.0",
-    "typescript": "^5.6.3",
-    "vitest": "^4.0.17"
+    "oxfmt": "^0.66.0",
+    "oxlint": "^1.81.0",
+    "rimraf": "^6.1.3",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.11"
   },
-  "packageManager": "pnpm@9.15.4",
+  "engines": {
+    "node": "^20.19.0 || ^22.13.0 || >=23.5.0"
+  },
   "volta": {
     "node": "24.12.0",
-    "pnpm": "9.15.4"
-  }
+    "pnpm": "9.15.9"
+  },
+  "packageManager": "pnpm@9.15.9"
 }

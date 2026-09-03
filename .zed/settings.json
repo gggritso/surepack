@@ -4,25 +4,34 @@
 // see the documentation: https://zed.dev/docs/configuring-zed#settings-files
 {
   "languages": {
-    // Repeat for every language that you want to use Oxfmt for.
     "JavaScript": {
       "format_on_save": "on",
       "formatter": [
         {
           "language_server": {
-            "name": "oxfmt",
-          },
-        },
-      ],
+            "name": "oxfmt"
+          }
+        }
+      ]
     },
+    "TypeScript": {
+      "format_on_save": "on",
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ]
+    }
   },
   "lsp": {
     "oxfmt": {
       "initialization_options": {
         "settings": {
-          "fmt.configPath": null,
-        },
-      },
-    },
-  },
+          "fmt.configPath": null
+        }
+      }
+    }
+  }
 }
