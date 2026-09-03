@@ -21,5 +21,8 @@ Thumbs.db
 *.swp
 *.swo
 
+# Local AI assistant settings
+.claude/settings.local.json
+
 # TypeScript cache
 *.tsbuildinfo
