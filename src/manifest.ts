@@ -68,6 +68,8 @@ export class Manifest {
 
     if (nightsOfSleep > 7) manifest.addOne("essix");
 
+    if (nightsOfSleep >= 3) manifest.addOne("cuticle scissors");
+
     if (nightsOfSleep > 2) manifest.addOne("condoms");
 
     if (workouts > 0) {

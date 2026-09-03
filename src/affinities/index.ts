@@ -15,6 +15,7 @@ export const doppItems = new Set([
   "polysporin",
   "band-aids",
   "essix",
+  "cuticle scissors",
 ]);
 
 export const backpackItems = new Set([
